@@ -1,0 +1,1 @@
+# 4cut-photo-booth
