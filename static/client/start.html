@@ -34,6 +34,7 @@
     .home>li {
         text-align: right;
     }
+
     .home>a {
         color: rgb(255, 129, 129);
     }
@@ -41,6 +42,7 @@
 <style>
 
 </style>
+
 <body>
     <nav>
         <p class="home">
@@ -59,14 +61,16 @@
     fetch('https://auth.nanu.cc')
         .then(response => {
             if (response.ok) { // 연결 성공
-                    const anchor = document.querySelector('.home > a');
-                    anchor.style.color = 'green';
-                    anchor.textContent = 'NANU-JP2 연결됨';
-                } else {
-                    console.error('서버 연결 실패');
-                }
+                const anchor = document.querySelector('.home > a');
+                anchor.style.color = 'green';
+                anchor.textContent = 'NANU-JP2 연결됨';
+            } else {
+                console.error('서버 연결 실패');
+            }
         })
         .catch(error => {
-            
+            const anchor = document.querySelector('.home > a');
+            anchor.style.color = 'red';
+            anchor.textContent = 'NANU-JP2 연결 실패';
         });
 </script>
