@@ -87,6 +87,7 @@
 
 </html>
 <script>
+
     fetch('/gateway/', {
         credentials: 'include'
     })
@@ -94,7 +95,7 @@
             if (response.ok) {
                 const anchor = document.querySelector('.home > a');
                 anchor.style.color = 'green';
-                anchor.textContent = 'NANU-JP2 연결됨';
+                anchor.textContent = '서비스 서버 연결됨';
             } else {
                 console.error('서버 연결 실패');
             }

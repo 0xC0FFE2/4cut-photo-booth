@@ -5,6 +5,7 @@ const cors = require('cors');
 app.use(cors());
 
 const uploadRouter = require("./routes/upload");
+const { timeStamp } = require("console");
 
 app.use(express.static(path.join(__dirname, '/static')));
 
@@ -13,10 +14,10 @@ app.get("/hello", (req, res) => {
 });
 
 app.get("/gateway", (req, res) => {
-    return res.status(200).send("Unknown");
+    return res.json({ping:Date.now()});
 });
 
-app.use("/gateway/upload",uploadRouter);
+app.use("/gateway/video",uploadRouter);
 
 app.listen(8080, () => {
     console.log("[INFO] Express Start");
