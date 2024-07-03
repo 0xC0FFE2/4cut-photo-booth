@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대마네컷</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'MinSans-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    * {
+        font-family: 'MinSans-Regular';
+        margin: 0 auto;
+    }
+
+    nav {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        height: 40px;
+    }
+
+    nav>p {
+        line-height: 40px;
+        margin-left: 20px;
+        text-align: left;
+    }
+
+    .home>li {
+        text-align: right;
+    }
+    .home>a {
+        color: rgb(255, 129, 129);
+    }
+</style>
+<style>
+
+</style>
+<body>
+    <nav>
+        <p class="home">
+            대마네컷 WEB - <a>NANU-JP2 연결 시도중</a>
+        </p>
+
+    </nav>
+    <div class="main">
+        반가워요. 시작해 볼까요?
+    </div>
+
+</body>
+
+</html>
+<script>
+    fetch('https://auth.nanu.cc')
+        .then(response => {
+            if (response.ok) { // 연결 성공
+                    const anchor = document.querySelector('.home > a');
+                    anchor.style.color = 'green';
+                    anchor.textContent = 'NANU-JP2 연결됨';
+                } else {
+                    console.error('서버 연결 실패');
+                }
+        })
+        .catch(error => {
+            
+        });
+</script>
