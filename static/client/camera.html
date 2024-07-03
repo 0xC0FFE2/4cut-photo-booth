@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대마네컷</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'MinSans-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    * {
+        font-family: 'MinSans-Regular';
+        margin: 0 auto;
+    }
+
+    nav {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        height: 40px;
+    }
+
+    nav>p {
+        line-height: 40px;
+        margin-left: 20px;
+        text-align: left;
+    }
+
+    .home>li {
+        text-align: right;
+    }
+
+    .home>a {
+        color: rgb(255, 129, 129);
+    }
+    .welcome {
+        margin-top: 100px;
+        text-align: center;
+        font-size: 4em;
+    }
+    .welcome>p {
+        font-size: 0.8em;
+    }
+    .main{
+        text-align: center;
+    }
+    button {
+        font-size: 1.5em;
+        margin-top: 50px;
+        display:block;
+        align-items: center;
+        text-align: center;
+        width: 200px;
+        height: 50px;
+        border-radius: 0px;
+        background-color: rgb(150, 150, 150);
+        border: 1px solid black;
+    }
+    .camera-box {
+        width: 300px;
+        height: 300px;
+    }
+</style>
+
+<body>
+    <nav>
+        <p class="home">
+            대마네컷 WEB - <a>NANU-JP2 연결 시도중<a>
+        </p>
+    </nav>
+    <div class="welcome">
+        📷<br>
+    </div>
+    <div class="main">
+        <video class="camera-box" autoplay></video>
+    </div>
+    <button id="recordBtn">
+        녹화하기
+    </button>
+</body>
+
+</html>
+<script>
+    // Check server connection
+    fetch('/gateway/', {
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.ok) {
+            const anchor = document.querySelector('.home > a');
+            anchor.style.color = 'green';
+            anchor.textContent = 'NANU-JP2 연결됨';
+        } else {
+            console.error('서버 연결 실패');
+        }
+    })
+    .catch(error => {
+        const anchor = document.querySelector('.home > a');
+        anchor.style.color = 'red';
+        anchor.textContent = 'NANU-JP2 연결 실패';
+    });
+
+    // Variables for recording
+    let mediaRecorder;
+    let recordedChunks = [];
+
+    // Access the camera and display the video
+    const videoElement = document.querySelector('video');
+    const recordButton = document.getElementById('recordBtn');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        videoElement.srcObject = stream;
+
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = event => {
+            if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+            }
+        };
+
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(recordedChunks, {
+                type: 'video/webm'
+            });
+            recordedChunks = [];
+            uploadVideo(blob);
+        };
+    })
+    .catch(error => {
+        console.error('Error accessing media devices.', error);
+    });
+
+    // Record button event listener
+    recordButton.addEventListener('click', () => {
+        if (mediaRecorder.state === 'inactive') {
+            mediaRecorder.start();
+            recordButton.textContent = '녹화 중지';
+        } else if (mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+            recordButton.textContent = '녹화하기';
+        }
+    });
+
+    // Function to upload video to server
+    function uploadVideo(blob) {
+        const formData = new FormData();
+        formData.append('video', blob, 'recording.webm');
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Video uploaded successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error uploading video:', error);
+        });
+    }
+</script>
