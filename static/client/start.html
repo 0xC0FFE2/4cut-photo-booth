@@ -38,6 +38,21 @@
     .home>a {
         color: rgb(255, 129, 129);
     }
+    .welcome {
+        margin-top: 200px;
+        text-align: center;
+        font-size: 4em;
+    }
+    .welcome>p {
+        font-size: 0.8em;
+    }
+    .main{
+        text-align: center;
+    }
+    button {
+        display: inline-block;
+        align-items: center;
+    }
 </style>
 <style>
 
@@ -46,21 +61,29 @@
 <body>
     <nav>
         <p class="home">
-            대마네컷 WEB - <a>NANU-JP2 연결 시도중</a>
+            대마네컷 WEB - <a>NANU-JP2 연결 시도중<a>
         </p>
 
     </nav>
+    <div class="welcome">
+        🖐️<br>
+        <p>대마네컷</p>
+    </div>
     <div class="main">
         반가워요. 시작해 볼까요?
     </div>
-
+    <button>
+        Start!
+    </button>
 </body>
 
 </html>
 <script>
-    fetch('https://auth.nanu.cc')
+    fetch('/gateway/', {
+        credentials: 'include'
+    })
         .then(response => {
-            if (response.ok) { // 연결 성공
+            if (response.ok) {
                 const anchor = document.querySelector('.home > a');
                 anchor.style.color = 'green';
                 anchor.textContent = 'NANU-JP2 연결됨';
