@@ -54,7 +54,7 @@
     }
 
     button {
-        font-size: 1.5em;
+        font-size: 1em;
         margin-top: 50px;
         display: block;
         align-items: center;
@@ -64,6 +64,12 @@
         border-radius: 0px;
         background-color: rgb(150, 150, 150);
         border: 1px solid black;
+        transition: all ease-in-out 0.3s;
+    }
+
+    .user-img:nth-child(2) {
+        width: 200px;
+        background-color: aquamarine;
     }
 </style>
 <style>
@@ -98,16 +104,24 @@
     var selectedCount = 0;
     const anchor = document.querySelector('.main > a');
     anchor.textContent = selectedCount;
-    for (var x = 0; x < 5; x++) {
-        var target = document.querySelector('.main > a');
-        target.textContent = selectedCount;
-    }
+    var userImgs = document.querySelectorAll('.user-img');
+
+    // 모든 이미지에 사진 넣기
+    userImgs.forEach(function (img, index) {
+        img.src = `/uploads/image-92975-5pic.png?${index + 1}`;
+    });
     function nextPage() {
         if (selectedCount == 4) {
             window.location.replace('./decorate.html');
         } else {
-            var anchor = document.querySelector('button');
-            anchor.textContent = selectedCount;
+            var target = document.querySelector('button');
+            target.textContent = "사진을 4개 선택해 주세요";
+            target.style.backgroundColor = "red";
+            setTimeout(() => {
+                var target = document.querySelector('button');
+                target.textContent = "확정하기";
+                target.style.backgroundColor = " rgb(150, 150, 150)";
+            }, 1000);
         }
     }
 
