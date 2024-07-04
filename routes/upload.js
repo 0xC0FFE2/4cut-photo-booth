@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
-        console.log("[STORAGE] video-${req.cookies.PicID}-${file.originalname} is Uploaded");
+        console.log(`[STORAGE] video-${req.cookies.PicID}-${file.originalname} is Uploaded`);
         cb(null, `video-${req.cookies.PicID}-${file.originalname}`);
     }
 });

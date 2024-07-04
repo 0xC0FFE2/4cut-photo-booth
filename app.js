@@ -19,7 +19,7 @@ app.get("/gateway", (req, res) => {
 });
 
 app.use("/gateway/video",uploadRouter);
-app.use("/cdn",cdnRouter);
+app.use("/gateway/cdn",cdnRouter);
 
 app.listen(8080, () => {
     console.log("[INFO] Express Start");
