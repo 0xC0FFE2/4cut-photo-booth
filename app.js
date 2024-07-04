@@ -14,6 +14,7 @@ app.get("/hello", (req, res) => {
 });
 
 app.get("/gateway", (req, res) => {
+    console.log("[INFO] Gateway Pinged");
     return res.json({ping:Date.now()});
 });
 

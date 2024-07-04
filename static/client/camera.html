@@ -82,7 +82,7 @@
 <body>
     <nav>
         <p class="home">
-            대마네컷 WEB - <a>NANU-JP2 연결 시도중<a>
+            대마네컷 WEB - <a>연결 시도중<a>
         </p>
     </nav>
     Client v3. Server Ping <a class="ping">--</a>
@@ -101,105 +101,107 @@
 </html>
 <script>
     var pic_count = 5;
-    const picAnchor = document.querySelector('.photo-count');
-    picAnchor.style.color = 'black';
-    picAnchor.textContent = pic_count;
+const picAnchor = document.querySelector('.photo-count');
+picAnchor.textContent = pic_count;
 
-    //현 사진의 이미지셋 번호 지정
-    const expires = new Date();
-    const value = Math.floor(10000 + Math.random() * 90000);
-    const name = 'PicID';
-    document.cookie = `${name}=${value};expires=0;path=/`;
-    // API 호출
-    fetch('/gateway')
-        .then(response => response.json())
-        .then(data => {
-            const pingValue = (Date.now() - data.ping) / 10; // 응답 시간(ms)
-            const pingElement = document.querySelector('.ping'); // .ping 클래스를 가진 요소 선택
-            pingElement.textContent = `${pingValue}ms`; // 요소의 텍스트 내용 변경
-        })
-        .catch(error => {
-            console.log('API 호출 중 오류 발생:', error);
-        });
+// 현 사진의 이미지셋 번호 지정
+const expires = new Date();
+const value = Math.floor(10000 + Math.random() * 90000);
+const name = 'PicID';
+document.cookie = `${name}=${value};expires=0;path=/`;
 
-    fetch('/gateway', {
-        credentials: 'include'
+// API 호출
+fetch('/gateway')
+    .then(response => response.json())
+    .then(data => {
+        const pingValue = (Date.now() - data.ping) / 10; // 응답 시간(ms)
+        const pingElement = document.querySelector('.ping'); // .ping 클래스를 가진 요소 선택
+        pingElement.textContent = `${pingValue}ms`; // 요소의 텍스트 내용 변경
     })
-        .then(response => {
-            if (response.ok) {
-                const anchor = document.querySelector('.home > a');
-                anchor.style.color = 'green';
-                anchor.textContent = '서비스 서버 연결됨';
-            } else {
-                console.error('서버 연결 실패');
-            }
-        })
-        .catch(error => {
-            const anchor = document.querySelector('.home > a');
-            anchor.style.color = 'red';
-            anchor.textContent = 'NANU-JP2 연결 실패';
-        });
-
-    let mediaRecorder;
-    let recordedChunks = [];
-
-    const videoElement = document.querySelector('video');
-    const recordButton = document.getElementById('recordBtn');
-
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            videoElement.srcObject = stream;
-
-            mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.ondataavailable = event => {
-                if (event.data.size > 0) {
-                    recordedChunks.push(event.data);
-                }
-            };
-
-            mediaRecorder.onstop = () => {
-                const blob = new Blob(recordedChunks, {
-                    type: 'video/mp4'
-                });
-                recordedChunks = [];
-                uploadVideo(blob);
-                pic_count--; 
-                picAnchor.style.color = 'black';
-                picAnchor.textContent = pic_count;
-            };
-        })
-        .catch(error => {
-            const anchor = document.querySelector('.home > a');
-            console.error('미디어 디바이스 접송 중 오류 발생', error);
-            anchor.style.color = 'red';
-            anchor.textContent = 'Camera Error. Try Again';
-        });
-
-    recordButton.addEventListener('click', () => {
-        if (mediaRecorder.state === 'inactive') {
-            mediaRecorder.start();
-            recordButton.textContent = '녹화 중지';
-        } else if (mediaRecorder.state === 'recording') {
-            mediaRecorder.stop();
-            recordButton.textContent = '녹화하기';
-        }
+    .catch(error => {
+        console.log('API 호출 중 오류 발생:', error);
     });
 
-    // Function to upload video to server
-    function uploadVideo(blob) {
-        const formData = new FormData();
-        formData.append('video', blob, pic_count+'vid.mp4');
+fetch('/gateway', {
+    credentials: 'include'
+})
+    .then(response => {
+        if (response.ok) {
+            const anchor = document.querySelector('.home > a');
+            anchor.style.color = 'green';
+            anchor.textContent = '서비스 서버 연결됨';
+        } else {
+            console.error('서버 연결 실패');
+        }
+    })
+    .catch(error => {
+        const anchor = document.querySelector('.home > a');
+        anchor.style.color = 'red';
+        anchor.textContent = 'NANU-JP2 연결 실패';
+    });
 
-        fetch('/gateway/video/upload', {
-            method: 'POST',
-            body: formData,
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Video uploaded successfully:', data);
-            })
-            .catch(error => {
-                console.error('Error uploading video:', error);
+let mediaRecorder;
+let recordedChunks = [];
+
+const videoElement = document.querySelector('video');
+const recordButton = document.getElementById('recordBtn');
+
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        videoElement.srcObject = stream;
+
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = event => {
+            if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+            }
+        };
+
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(recordedChunks, {
+                type: 'video/mp4'
             });
+            recordedChunks = [];
+            uploadVideo(blob);
+            pic_count--; 
+            picAnchor.style.color = 'black';
+            picAnchor.textContent = pic_count;
+            if (pic_count === 0) {
+                location.href = 'next_page.html'; // 다음 페이지로 이동
+            }
+        };
+    })
+    .catch(error => {
+        const anchor = document.querySelector('.home > a');
+        console.error('미디어 디바이스 접속 중 오류 발생', error);
+        anchor.style.color = 'red';
+        anchor.textContent = 'Camera Error. Try Again';
+    });
+
+recordButton.addEventListener('click', () => {
+    if (mediaRecorder.state === 'inactive') {
+        mediaRecorder.start();
+        recordButton.textContent = '녹화 중지';
+    } else if (mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        recordButton.textContent = '녹화하기';
     }
+});
+
+function uploadVideo(blob) {
+    const formData = new FormData();
+    formData.append('video', blob, pic_count + 'vid.mp4');
+    // GateWay API에 촬영한 영상 업로드
+    fetch('/gateway/video/upload', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Video uploaded successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error uploading video:', error);
+        });
+}
 </script>
