@@ -18,7 +18,7 @@ app.get("/gateway", (req, res) => {
     return res.json({ping:Date.now()});
 });
 
-app.use("/gateway/video",uploadRouter);
+app.use("/gateway/media",uploadRouter);
 app.use("/gateway/cdn",cdnRouter);
 
 app.listen(8080, () => {
