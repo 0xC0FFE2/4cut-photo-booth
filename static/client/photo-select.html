@@ -40,7 +40,7 @@
     }
 
     .welcome {
-        margin-top: 0;
+        margin-top: 100px;
         text-align: center;
         font-size: 2em;
     }
@@ -67,9 +67,50 @@
         transition: all ease-in-out 0.3s;
     }
 
-    .user-img:nth-child(2) {
-        width: 200px;
-        background-color: aquamarine;
+    .user-img {
+        width: 320px;
+        height: 240px;
+        background-size:cover;
+    }
+
+    .select-img {
+        margin: 10px;
+        width: 320px;
+        height: 240px;
+        position: relative;
+        overflow: hidden;
+        float: left;
+    }
+
+    .select-img>.background {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        font-size: 2em;
+        text-align: center;
+        line-height: 240px;
+        color: aliceblue;
+        width: 320px;
+        height: 240px;
+        transition: all 0.5s;
+        transform: translateY(240px);
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .container {
+        overflow-y: hidden;
+        overflow-x: scroll;
+        cursor: grab;
+    }
+
+    .select-box {
+        width: 1700px;
+    }
+
+    .select-img.selected>.background {
+        transform: translateY(0px);
     }
 </style>
 <style>
@@ -81,7 +122,6 @@
         <p class="home">
             대마네컷 WEB - <a>연결 시도중<a>
         </p>
-
     </nav>
     <div class="welcome">
         사진을 골라주세요!
@@ -89,11 +129,30 @@
     <div class="main">
         <a></a>개 사진 선택됨
     </div>
-    <img class="user-img">
-    <img class="user-img">
-    <img class="user-img">
-    <img class="user-img">
-    <img class="user-img">
+    <div class="container">
+        <div class="select-box">
+            <div class="select-img">
+                <div class="background"></div>
+                <img class="user-img">
+            </div>
+            <div class="select-img">
+                <div class="background"></div>
+                <img class="user-img">
+            </div>
+            <div class="select-img">
+                <div class="background"></div>
+                <img class="user-img">
+            </div>
+            <div class="select-img">
+                <div class="background"></div>
+                <img class="user-img">
+            </div>
+            <div class="select-img">
+                <div class="background"></div>
+                <img class="user-img">
+            </div>
+        </div>
+    </div>
     <button onclick="nextPage();">
         확정하기
     </button>
@@ -101,14 +160,54 @@
 
 </html>
 <script>
-    var selectedCount = 0;
+    let selectedCount = 0;
+    const pic_id = getCookie('PicID');
     const anchor = document.querySelector('.main > a');
     anchor.textContent = selectedCount;
-    var userImgs = document.querySelectorAll('.user-img');
+    const userImgs = document.querySelectorAll('.user-img');
+    const selectImgs = document.querySelectorAll(".select-img");
+    const backgrounds = document.querySelectorAll(".background");
+    const container = document.querySelector(".container");
 
+    let selectedImgs = [];
+
+    function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) {
+            return match[2];
+        }
+        return null;
+    }
+    function updateCounts(){
+        selectedCount = 0;
+        selectedImgs.forEach(function(e, i){
+            e.children[0].innerText = i+1;
+            selectedCount++;
+        });
+        anchor.innerText = selectedCount;
+        
+    }
+    container.addEventListener("scroll", function(e){
+        container.scrollLeft += 10;
+    })
     // 모든 이미지에 사진 넣기
     userImgs.forEach(function (img, index) {
-        img.src = `/uploads/image-92975-5pic.png?${index + 1}`;
+        img.src = `/gateway/cdn/image/${pic_id}-${index}`;
+    });
+    selectImgs.forEach(function (e) {
+        e.addEventListener("click", function () {
+            e.classList.toggle("selected");
+            if (selectedImgs.includes(e)){
+                for(let i = 0; i < selectedImgs.length; i++) {
+                    if (selectedImgs[i] === e) {
+                        selectedImgs.splice(i, 1);
+                    }
+                }
+            } else {
+                selectedImgs.push(e);
+            }
+            updateCounts();
+        });
     });
     function nextPage() {
         if (selectedCount == 4) {

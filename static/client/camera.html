@@ -162,12 +162,14 @@
                 });
                 recordedChunks = [];
                 uploadVideo(blob);
-                pic_count--;
                 picAnchor.style.color = 'black';
                 picAnchor.textContent = pic_count;
 
                 if (pic_count === 0) {
-                    location.href = './photo-select.html'; // 다음 페이지로 이동
+                    setTimeout(function () {
+                        location.href = './photo-select.html'; // 다음 페이지로 이동
+                    }, 300);
+
                 }
             };
         })
@@ -188,6 +190,7 @@
             captureImage();
             mediaRecorder.stop();
             recordButton.textContent = '녹화하기';
+            pic_count--;
         }
     }
 
