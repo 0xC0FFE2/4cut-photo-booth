@@ -166,8 +166,9 @@ navigator.mediaDevices.getUserMedia({ video: true })
             pic_count--; 
             picAnchor.style.color = 'black';
             picAnchor.textContent = pic_count;
+
             if (pic_count === 0) {
-                location.href = 'next_page.html'; // 다음 페이지로 이동
+                location.href = './photo-select.html'; // 다음 페이지로 이동
             }
         };
     })
@@ -175,7 +176,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
         const anchor = document.querySelector('.home > a');
         console.error('미디어 디바이스 접속 중 오류 발생', error);
         anchor.style.color = 'red';
-        anchor.textContent = 'Camera Error. Try Again';
+        anchor.textContent = '카메라 오류 발생!';
     });
 
 recordButton.addEventListener('click', () => {

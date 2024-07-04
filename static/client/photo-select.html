@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대마네컷</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'MinSans-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    * {
+        font-family: 'MinSans-Regular';
+        margin: 0 auto;
+    }
+
+    nav {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        height: 40px;
+    }
+
+    nav>p {
+        line-height: 40px;
+        margin-left: 20px;
+        text-align: left;
+    }
+
+    .home>li {
+        text-align: right;
+    }
+
+    .home>a {
+        color: rgb(255, 129, 129);
+    }
+    .welcome {
+        margin-top: 0;
+        text-align: center;
+        font-size: 2em;
+    }
+    .welcome>p {
+        font-size: 0.8em;
+    }
+    .main{
+        text-align: center;
+    }
+    button {
+        font-size: 1.5em;
+        margin-top: 50px;
+        display:block;
+        align-items: center;
+        text-align: center;
+        width: 200px;
+        height: 50px;
+        border-radius: 0px;
+        background-color: rgb(150, 150, 150);
+        border: 1px solid black;
+    }
+</style>
+<style>
+
+</style>
+
+<body>
+    <nav>
+        <p class="home">
+            대마네컷 WEB - <a>연결 시도중<a>
+        </p>
+
+    </nav>
+    <div class="welcome">
+        사진을 골라주세요!
+    </div>
+    <div class="main">
+        <a>-</a>개 사진 선택됨
+    </div>
+    <img class="user-img">
+    <button onclick="nextPage();">
+        확정하기
+    </button>
+</body>
+
+</html>
+<script>
+    var selectedCount = 0;
+    function nextPage() {
+        if (selectedCount == 4) {
+            window.location.replace('./decorate.html')
+        }
+        
+    }
+
+    fetch('/gateway/', {
+        credentials: 'include'
+    })
+        .then(response => {
+            if (response.ok) {
+                const anchor = document.querySelector('.home > a');
+                anchor.style.color = 'green';
+                anchor.textContent = '서비스 서버 연결됨';
+            } else {
+                console.error('서버 연결 실패');
+            }
+        })
+        .catch(error => {
+            const anchor = document.querySelector('.home > a');
+            anchor.style.color = 'red';
+            anchor.textContent = 'NANU-JP2 연결 실패';
+        });
+</script>
