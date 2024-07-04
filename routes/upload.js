@@ -22,6 +22,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+//File Upload 받기
 router.post("/upload",upload.single('video'),(req,res) => {
     if(!req.file) {
         console.log("[ERR] Upload err. no data.");
