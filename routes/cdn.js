@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require("fs");
 const router = express.Router();
 
-router.get("image/:id", (req, res) => {
+router.get("/image/:id", (req, res) => {
     const imgid = req.params.id;
     if (/[\!@#\$%\^&\*]/.test(imgid)) {
         return res.status(404).json({ error: "not vaild request" });
@@ -25,7 +25,7 @@ router.get("image/:id", (req, res) => {
     }
 });
 
-router.get("video/:id", (req, res) => {
+router.get("/video/:id", (req, res) => {
     const imgid = req.params.id;
     if (/[\!@#\$%\^&\*]/.test(imgid)) {
         return res.status(404).json({ error: "not vaild request" });
