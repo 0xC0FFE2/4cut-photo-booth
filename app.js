@@ -5,7 +5,7 @@ const cors = require('cors');
 app.use(cors());
 
 const uploadRouter = require("./routes/upload");
-const { timeStamp } = require("console");
+const cdnRouter = require("./routes/cdn");
 
 app.use(express.static(path.join(__dirname, '/static')));
 
@@ -19,6 +19,7 @@ app.get("/gateway", (req, res) => {
 });
 
 app.use("/gateway/video",uploadRouter);
+app.use("/cdn",cdnRouter);
 
 app.listen(8080, () => {
     console.log("[INFO] Express Start");
