@@ -38,21 +38,25 @@
     .home>a {
         color: rgb(255, 129, 129);
     }
+
     .welcome {
         margin-top: 0;
         text-align: center;
         font-size: 2em;
     }
+
     .welcome>p {
         font-size: 0.8em;
     }
-    .main{
+
+    .main {
         text-align: center;
     }
+
     button {
         font-size: 1.5em;
         margin-top: 50px;
-        display:block;
+        display: block;
         align-items: center;
         text-align: center;
         width: 200px;
@@ -77,8 +81,12 @@
         사진을 골라주세요!
     </div>
     <div class="main">
-        <a>-</a>개 사진 선택됨
+        <a></a>개 사진 선택됨
     </div>
+    <img class="user-img">
+    <img class="user-img">
+    <img class="user-img">
+    <img class="user-img">
     <img class="user-img">
     <button onclick="nextPage();">
         확정하기
@@ -88,11 +96,19 @@
 </html>
 <script>
     var selectedCount = 0;
+    const anchor = document.querySelector('.main > a');
+    anchor.textContent = selectedCount;
+    for (var x = 0; x < 5; x++) {
+        var target = document.querySelector('.main > a');
+        target.textContent = selectedCount;
+    }
     function nextPage() {
         if (selectedCount == 4) {
-            window.location.replace('./decorate.html')
+            window.location.replace('./decorate.html');
+        } else {
+            var anchor = document.querySelector('button');
+            anchor.textContent = selectedCount;
         }
-        
     }
 
     fetch('/gateway/', {
