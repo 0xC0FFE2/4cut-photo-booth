@@ -4,6 +4,8 @@ const path = require("path");
 const cors = require('cors');
 app.use(cors());
 
+app.set('view engine', 'ejs');
+
 const uploadRouter = require("./routes/upload");
 const cdnRouter = require("./routes/cdn");
 const renderRouter = require("./routes/render");
