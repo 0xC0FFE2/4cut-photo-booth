@@ -215,11 +215,10 @@
 
             //신규 쿠키 추가
             const expires = new Date();
-            const value = imginfo;
-            const name = 'Selected-Pic-ID';
-            document.cookie = `${name}=${value};expires=0;path=/`;
-            console.log(imginfo);
-            window.location.replace('./decorate.html');
+            document.cookie = `Selected-Pic-ID=${imginfo};expires=0;path=/`;
+            const frameInfo = (savedFrameSrc.split("/")[5].split('-', 6)[5]);
+            document.cookie = `Frame-Info=${frameInfo};expires=0;path=/`;
+            window.location.replace('./finished.html');
         } else {
             var target = document.querySelector('button');
             target.textContent = "사진을 4개 선택해 주세요";
