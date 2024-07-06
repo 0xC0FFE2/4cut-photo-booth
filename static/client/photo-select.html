@@ -200,11 +200,15 @@
     function nextPage() {
         if (selectedCount == 4) {
             let imginfo = []; //선택한 사진 순서 가져옴
-            selectedImgs.forEach((element,index)=> {
+            selectedImgs.forEach((element, index) => {
                 imginfo[index] = element.getAttribute("indexid");
             });
+            const expires = new Date();
+            const value = imginfo;
+            const name = 'Selected-Pic-ID';
+            document.cookie = `${name}=${value};expires=0;path=/`;
             console.log(imginfo);
-            //window.location.replace('./decorate.html');
+            window.location.replace('./decorate.html');
         } else {
             var target = document.querySelector('button');
             target.textContent = "사진을 4개 선택해 주세요";
