@@ -4,7 +4,8 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "puppeteer": "^22.12.1"
   },
   "name": "4cut-photo-booth",
   "version": "1.5.5",
