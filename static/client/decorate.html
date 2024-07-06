@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대마네컷</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'MinSans-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/MinSans-Regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
+        background-color: rgb(212, 212, 212);
+    }
+
+    * {
+        font-family: 'MinSans-Regular';
+        margin: 0 auto;
+    }
+
+    nav {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        height: 40px;
+    }
+
+    nav>p {
+        line-height: 40px;
+        margin-left: 20px;
+        text-align: left;
+    }
+
+    .home>li {
+        text-align: right;
+    }
+
+    .home>a {
+        color: rgb(255, 129, 129);
+    }
+    .welcome {
+        text-align: center;
+    }
+    .welcome>p {
+        font-size: 2em;
+    }
+    .main{
+        text-align: center;
+    }
+    button {
+        font-size: 1.5em;
+        margin-top: 50px;
+        display:block;
+        align-items: center;
+        text-align: center;
+        width: 200px;
+        height: 50px;
+        border-radius: 0px;
+        background-color: rgb(150, 150, 150);
+        border: 1px solid black;
+    }
+
+    .images {
+        width: 160px;
+        display: inline-block;
+        margin-left: 7.2%;
+    }
+
+    img {
+        height: 500px;
+    }
+</style>
+<style>
+
+</style>
+
+<body>
+    <nav>
+        <p class="home">
+            대마네컷 WEB - <a>연결 시도중<a>
+        </p>
+
+    </nav>
+    <div class="welcome">
+        <p>액자를 선택해 주세요</p>❌선택 후에는 바꿀수 없어요
+    </div>
+    <div class="images">
+        <img src="/assets/panels/4cut-booth-display-panel-design.png">
+    </div>
+    <div class="images">
+        <img src="/assets/panels/4cut-booth-display-panel-design-black.png">
+    </div>
+    <div class="images">
+        <img src="/assets/panels/4cut-booth-display-panel-design-rainbow.png">
+    </div>
+    <div class="images">
+        <img src="/assets/panels/4cut-booth-display-panel-design-white.png">
+    </div>
+    <div class="images">
+        <img src="/assets/panels/4cut-booth-display-panel-design-silver.png">
+    </div>
+    <button onclick="window.location.replace('./camera.html')">
+        시작하기
+    </button>
+</body>
+
+</html>
+<script>
+
+    fetch('/gateway/', {
+        credentials: 'include'
+    })
+        .then(response => {
+            if (response.ok) {
+                const anchor = document.querySelector('.home > a');
+                anchor.style.color = 'green';
+                anchor.textContent = '서비스 서버 연결됨';
+            } else {
+                console.error('서버 연결 실패');
+            }
+        })
+        .catch(error => {
+            const anchor = document.querySelector('.home > a');
+            anchor.style.color = 'red';
+            anchor.textContent = 'NANU-JP2 연결 실패';
+        });
+</script>
