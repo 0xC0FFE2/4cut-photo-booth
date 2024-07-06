@@ -6,6 +6,7 @@ app.use(cors());
 
 const uploadRouter = require("./routes/upload");
 const cdnRouter = require("./routes/cdn");
+const renderRouter = require("./routes/render");
 
 app.use(express.static(path.join(__dirname, '/static')));
 
@@ -16,6 +17,7 @@ app.get("/gateway", (req, res) => {
 
 app.use("/gateway/media",uploadRouter);
 app.use("/gateway/cdn",cdnRouter);
+app.use("/render",renderRouter);
 
 app.listen(8080, () => {
     console.log("[INFO] Express Start");
