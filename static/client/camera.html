@@ -19,6 +19,10 @@
         margin: 0 auto;
     }
 
+    body {
+        transition: all 0.5s ease-in-out;
+    }
+
     nav {
         background-color: rgb(0, 0, 0);
         color: rgb(255, 255, 255);
@@ -167,10 +171,10 @@
                 picAnchor.textContent = pic_count;
 
                 if (pic_count === 0) {
+                    mediaRecorder.stop();
                     setTimeout(function () {
-                        mediaRecorder.stop();
                         location.href = './photo-select.html'; // 다음 페이지로 이동
-                    }, 300);
+                    }, 1000);
 
                 }
             };
@@ -186,14 +190,18 @@
     recordButton.addEventListener('click', startRecording);
 
     function startRecording() {
-        body.style.backgroundColor = 'red';
+        body.style.backgroundColor = 'bisque';
         captureImage();
-        mediaRecorder.stop();
+        mediaRecorder.stop(); //영상 중지
+
         pic_count--;
-        mediaRecorder.start();
+
         picAnchor.style.color = 'black';
         picAnchor.textContent = pic_count;
-        body.style.backgroundColor = 'white';
+        setTimeout(() => {
+            body.style.backgroundColor = 'white';
+            mediaRecorder.start();
+        }, 500);
     }
     function captureImage() {
         const canvas = document.createElement('canvas');
