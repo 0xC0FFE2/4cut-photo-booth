@@ -16,10 +16,10 @@ router.get("/png/:id", (req, res) => {
     res.render('.././render/4cutImage',
         {
             frame_url: frame + '.png',
-            imgid1: picID + '-' + selectedPic[0],
-            imgid2: picID + '-' + selectedPic[1],
-            imgid3: picID + '-' + selectedPic[2],
-            imgid4: picID + '-' + selectedPic[3]
+            imgid1: picID + '-' + ((selectedPic[0]) - 1),
+            imgid2: picID + '-' + ((selectedPic[1]) - 1),
+            imgid3: picID + '-' + ((selectedPic[2]) - 1),
+            imgid4: picID + '-' + ((selectedPic[3]) - 1)
         });
 });
 
@@ -33,10 +33,10 @@ router.get("/mp4/:id", (req, res) => {
     res.render('.././render/4cutVideo',
         {
             frame_url: frame + '.png',
-            imgid1: picID + '-' + selectedPic[0],
-            imgid2: picID + '-' + selectedPic[1],
-            imgid3: picID + '-' + selectedPic[2],
-            imgid4: picID + '-' + selectedPic[3]
+            imgid1: picID + '-' + ((selectedPic[0]) - 1),
+            imgid2: picID + '-' + ((selectedPic[1]) - 1),
+            imgid3: picID + '-' + ((selectedPic[2]) - 1),
+            imgid4: picID + '-' + ((selectedPic[3]) - 1)
         });
 });
 

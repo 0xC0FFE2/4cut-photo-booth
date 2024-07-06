@@ -38,20 +38,24 @@
     .home>a {
         color: rgb(255, 129, 129);
     }
+
     .welcome {
         text-align: center;
         font-size: 4em;
     }
+
     .welcome>p {
         font-size: 0.8em;
     }
-    .main{
+
+    .main {
         text-align: center;
     }
+
     button {
         font-size: 1.5em;
         margin-top: 50px;
-        display:block;
+        display: block;
         align-items: center;
         text-align: center;
         width: 200px;
@@ -104,4 +108,20 @@
             anchor.style.color = 'red';
             anchor.textContent = 'NANU-JP2 연결 실패';
         });
+
+    function base64Encode(str) {
+        return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    function getCookie(name) {
+        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return cookieValue ? cookieValue.pop() : '';
+    }
+
+    const picID = base64Encode(getCookie("PicID"));
+    const frame = base64Encode(getCookie("Frame-Info").split('.')[0]);
+    const imgSel = base64Encode(getCookie("Selected-Pic-ID"));
+    let VIEW_URL = window.location.href.split('/').slice(0, 3).join('/') + '/';
+    VIEW_URL = VIEW_URL + "?" +picID+"?frame="+frame+"&picture_id="+imgSel;
+    console.log(VIEW_URL);
 </script>
