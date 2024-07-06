@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/image/:id", (req, res) => {
     const imgid = req.params.id;
-    if (/[\!@#\$%\^&\*]/.test(imgid)) {
+    if (/[\!@#\$%\^&\*]/.test(imgid)) {  //간단한 보안 테스트
         return res.status(404).json({ error: "not vaild request" });
     } else if ((0 < imgid.slice(0,4)) && (100000 > imgid.slice(0,4))) {
         imageFileName = "image-"+imgid+"-img.png";

@@ -114,8 +114,7 @@
         <iframe src="" class="display_png" style="margin-left: -210px;">
         </iframe>
     </div>
-    <img class="qr" src="https://quickchart.io/qr?text=https://textkr">
-    <button onclick="window.location.replace('./decorate.html')">
+    <button onclick="openPopup()">
         QR코드 확인하기
     </button>
 </body>
@@ -153,11 +152,22 @@
     const picID = base64Encode(getCookie("PicID"));
     const frame = base64Encode(getCookie("Frame-Info").split('.')[0]);
     const imgSel = base64Encode(getCookie("Selected-Pic-ID"));
-    const URL_FRONT = window.location.href.split('/').slice(0, 3).join('/') + '/qr.html#';
+    const URL_FRONT = window.location.href.split('/').slice(0, 3).join('/') + '/qr.html?data=';
     const VIEW_URL = picID + "?frame=" + frame + "&picture_id=" + imgSel;
-    console.log(URL_FRONT + VIEW_URL);
-    var iframe = document.querySelector('.display_mp4');
+
+    var iframe = document.querySelector('.display_mp4');// 영상 재생
     iframe.src = "/render/mp4/" + VIEW_URL;
-    var iframe = document.querySelector('.display_png');
+    var iframe = document.querySelector('.display_png');//이미지 표시
     iframe.src = "/render/png/" + VIEW_URL;
+
+    function openPopup() { //QR팝업 표시
+        var width = 600;
+        var height = 400;
+        var left = window.innerWidth / 2 - width / 2;
+        var top = window.innerHeight / 2 - height / 2;
+
+        var popup = window.open('', '_blank', `width=${width}, height=${height}, left=${left}, top=${top}`);
+        console.log(URL_FRONT+base64Encode(VIEW_URL));//localhost 디버깅용
+        popup.document.write(`<h2 style="text-align:center;">QR을 스마트폰 기본 카메라로 스캔하세요</h2><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${URL_FRONT}${base64Encode(VIEW_URL)}" style="max-width: 100%; max-height: 100%; display: block; margin: auto;">`);
+    }
 </script>
