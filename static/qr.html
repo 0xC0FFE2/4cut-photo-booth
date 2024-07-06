@@ -7,28 +7,44 @@
     <title>대마네컷 WEB</title>
 </head>
 <style>
-    body {
-        background-color: rgb(212, 212, 212);
-    }
-    .iframe-container {
-        display: block;
-        text-align: center;
-        width: 300px;
-        height: 900px;
-        overflow: hidden;
+    body,
+    html {
+        background-color: rgb(233, 233, 233);
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
-    .iframe-container iframe {
-        position: block;
-        width: 650px;
-        height: 329.7%;
-        transform: scale(0.253);
-        border: 0;
+    .iframe-container {
+        display: flex;
+        justify-content: center;
+        /* 수평 가운데 정렬 */
+        align-items: center;
+        /* 수직 가운데 정렬 */
+        height: 900px;
+        /* 화면 전체 높이 */
+    }
+
+    .display_mp4 {
+        margin-top: 300px;
+        transform: scale(0.4);
+        width: 640px;
+        /* 원하는 너비 */
+        height: 300%;
+        /* 원하는 높이 */
+        border:none;
+    }
+    .thx {
+        margin-top: 20px;
+        font-size: 2em;
     }
 </style>
+<div class="thx">대마네컷 이용 ㄱㅅ</div>
 <div class="iframe-container">
     <iframe src="" class="display_mp4">
-       
     </iframe>
 </div>
 </iframe>
