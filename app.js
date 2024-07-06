@@ -11,9 +11,9 @@ const cdnRouter = require("./routes/cdn");
 const renderRouter = require("./routes/render");
 const saveRouter = require("./routes/save");
 
-app.use(express.static(path.join(__dirname, '/static')));
+app.use(express.static(path.join(__dirname, '/static'))); //정적 파일 서브
 
-app.get("/gateway", (req, res) => {
+app.get("/gateway", (req, res) => { // 게이트웨이 서버 연결 테스트
     console.log("[INFO] Gateway Pinged");
     return res.json({ping:Date.now()});
 });
