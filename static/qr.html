@@ -7,6 +7,13 @@
     <title>대마네컷 WEB</title>
 </head>
 <style>
+    @font-face {
+        font-family: 'PyeongChangPeace-Bold';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+    }
+
     body,
     html {
         background-color: rgb(233, 233, 233);
@@ -29,33 +36,69 @@
     }
 
     .display_mp4 {
-        margin-top: 300px;
+        margin-top: 200px;
         transform: scale(0.4);
         width: 640px;
         /* 원하는 너비 */
-        height: 300%;
+        height: 320%;
         /* 원하는 높이 */
-        border:none;
+        border: none;
     }
+
     .thx {
-        margin-top: 20px;
-        font-size: 2em;
+        font-family: 'PyeongChangPeace-Bold';
+        margin-top: 50px;
+        font-size: 3em;
+    }
+
+    .date {
+        font-family: 'PyeongChangPeace-Bold';
+        font-size: 1.3em;
+        margin-bottom: 20px;
+    }
+
+    p {
+        background-color: rgb(255, 148, 148);
+    }
+
+    @keyframes blink {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+    }
+
+    .blink {
+        animation: blink 1.7s 4;
+    }
+
+    .hidden {
+        display: none;
+        opacity: 0;
     }
 </style>
-<div class="thx">대마네컷 이용 ㄱㅅ</div>
-<div class="iframe-container">
-    <iframe src="" class="display_mp4">
+
+<body style="overflow-x: hidden">
+    <p id="blinkText">*영상은 따로 저장기능이 없습니다. 화면 녹화를 이용해 주세요..</p>
+    <div class="thx">대마네컷</div>
+    <div class="date">2024.07.07</div>
+    <div class="iframe-container">
+        <iframe src="" class="display_mp4" onclick="urlLoad()">
+        </iframe>
+    </div>
     </iframe>
-</div>
-</iframe>
-
-<body>
-
+    <div class="margin-block"></div>
 </body>
 
 </html>
 
 <script>
+    alert("사진 프레임을 클릭하시면 사진을 다운받으실 수 있습니다");
     function getDataFromUrlParameter(parameterName) {
         var url = window.location.href;
         var queryString = url.split('?')[1];
@@ -71,6 +114,10 @@
         return null;
     }
 
+    function urlLoad() {
+        window.location.href = "./asd.html";
+    }
+
     function base64Decode(encodedString) {
         var decodedString = atob(encodedString);
         return decodedString;
@@ -79,6 +126,15 @@
     const data = base64Decode(getDataFromUrlParameter('data'));
 
     var iframe = document.querySelector('.display_mp4');
-    console.log(data);
     iframe.src = "/render/mp4/" + data;
+
+    window.addEventListener('load', function () {
+        const p = document.getElementById('blinkText');
+        p.classList.add('blink');
+
+        setTimeout(function () {
+            p.classList.remove('blink');
+            p.classList.add('hidden');
+        }, 4000);
+    });
 </script>
