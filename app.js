@@ -9,6 +9,7 @@ app.set('view engine', 'ejs');
 const uploadRouter = require("./routes/upload");
 const cdnRouter = require("./routes/cdn");
 const renderRouter = require("./routes/render");
+const saveRouter = require("./routes/save");
 
 app.use(express.static(path.join(__dirname, '/static')));
 
@@ -20,6 +21,7 @@ app.get("/gateway", (req, res) => {
 app.use("/gateway/media",uploadRouter);
 app.use("/gateway/cdn",cdnRouter);
 app.use("/render",renderRouter);
+app.use("/download",saveRouter);
 
 app.listen(8080, () => {
     console.log("[INFO] Express Start");
