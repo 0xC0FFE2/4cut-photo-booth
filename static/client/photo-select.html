@@ -203,6 +203,8 @@
             selectedImgs.forEach((element, index) => {
                 imginfo[index] = element.getAttribute("indexid");
             });
+
+            //신규 쿠키 추가
             const expires = new Date();
             const value = imginfo;
             const name = 'Selected-Pic-ID';
