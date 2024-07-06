@@ -68,10 +68,15 @@
         border: 1px solid black;
     }
 
+    .images-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
     .images {
-        width: 160px;
-        display: inline-block;
-        margin-left: 7.2%;
+        cursor: pointer;
         opacity: 0.5;
     }
 
@@ -81,6 +86,7 @@
 
     .selected {
         opacity: 1;
+        border: 3px solid rgba(255, 0, 0, 0.5);
     }
 </style>
 <style>
@@ -97,29 +103,31 @@
     <div class="welcome">
         <p>액자를 선택해 주세요</p>❌선택 후에는 바꿀수 없어요
     </div>
-    <div class="images">
-        <img src="/assets/panels/4cut-booth-display-panel-design.png">
+    <div class="images-container">
+        <div class="images">
+            <img src="/assets/panels/4cut-booth-display-panel-design.png">
+        </div>
+        <div class="images">
+            <img src="/assets/panels/4cut-booth-display-panel-design-black.png">
+        </div>
+        <div class="images">
+            <img src="/assets/panels/4cut-booth-display-panel-design-rainbow.png">
+        </div>
+        <div class="images">
+            <img src="/assets/panels/4cut-booth-display-panel-design-white.png">
+        </div>
+        <div class="images">
+            <img src="/assets/panels/4cut-booth-display-panel-design-silver.png">
+        </div>
     </div>
-    <div class="images">
-        <img src="/assets/panels/4cut-booth-display-panel-design-black.png">
-    </div>
-    <div class="images">
-        <img src="/assets/panels/4cut-booth-display-panel-design-rainbow.png">
-    </div>
-    <div class="images">
-        <img src="/assets/panels/4cut-booth-display-panel-design-white.png">
-    </div>
-    <div class="images">
-        <img src="/assets/panels/4cut-booth-display-panel-design-silver.png">
-    </div>
-    <button onclick="window.location.replace('./camera.html')">
+    <button onclick="save();">
         시작하기
     </button>
 </body>
 
 </html>
 <script>
-
+    let selectedDiv = null;
     fetch('/gateway/', {
         credentials: 'include'
     })
@@ -138,16 +146,24 @@
             anchor.textContent = 'NANU-JP2 연결 실패';
         });
 
-    document.addEventListener('DOMContentLoaded',function() {
-        let selectedDiv = null;
+    document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.images').forEach(div => {
             div.addEventListener('click', function () {
-            if (selectedDiv) {
-                selectedDiv.classList.remove('selected');
-            }
-            selectedDiv = div;
-            selectedDiv.classList.add('selected');
-        });
+                if (selectedDiv) {
+                    selectedDiv.classList.remove('selected');
+                }
+                selectedDiv = div;
+                selectedDiv.classList.add('selected');
+            });
         })
     })
+    function save() {
+        if (selectedDiv) {
+            const expires = new Date();
+            const value = selectedDiv.querySelector('img');
+            const name = 'frame';
+            document.cookie = `${name}=${value};expires=0;path=/`;
+            window.location.replace('./camera.html');
+        }
+    }
 </script>
