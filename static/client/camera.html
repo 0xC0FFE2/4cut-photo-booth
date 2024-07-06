@@ -94,13 +94,14 @@
         <video class="camera-box" autoplay></video>
     </div>
     <button id="recordBtn">
-        녹화하기
+        사진 찍기
     </button>
 </body>
 
 </html>
 <script>var pic_count = 5;
     const picAnchor = document.querySelector('.photo-count');
+    const body = document.querySelector('body');
     picAnchor.textContent = pic_count;
 
     // 현 사진의 이미지셋 번호 지정
@@ -167,11 +168,13 @@
 
                 if (pic_count === 0) {
                     setTimeout(function () {
+                        mediaRecorder.stop();
                         location.href = './photo-select.html'; // 다음 페이지로 이동
                     }, 300);
 
                 }
             };
+            mediaRecorder.start();
         })
         .catch(error => {
             const anchor = document.querySelector('.home > a');
@@ -183,17 +186,15 @@
     recordButton.addEventListener('click', startRecording);
 
     function startRecording() {
-        if (mediaRecorder.state === 'inactive') {
-            mediaRecorder.start();
-            recordButton.textContent = '녹화 중지';
-        } else if (mediaRecorder.state === 'recording') {
-            captureImage();
-            mediaRecorder.stop();
-            recordButton.textContent = '녹화하기';
-            pic_count--;
-        }
+        body.style.backgroundColor = 'red';
+        captureImage();
+        mediaRecorder.stop();
+        pic_count--;
+        mediaRecorder.start();
+        picAnchor.style.color = 'black';
+        picAnchor.textContent = pic_count;
+        body.style.backgroundColor = 'white';
     }
-
     function captureImage() {
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
@@ -241,5 +242,4 @@
                 console.error('Error uploading video:', error);
             });
     }
-
 </script>
