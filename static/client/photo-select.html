@@ -126,23 +126,23 @@
     </div>
     <div></div>
     <div class="select-box">
-        <div class="select-img">
+        <div class="select-img" indexid="1">
             <div class="background"></div>
             <img class="user-img">
         </div>
-        <div class="select-img">
+        <div class="select-img" indexid="2">
             <div class="background"></div>
             <img class="user-img">
         </div>
-        <div class="select-img">
+        <div class="select-img" indexid="3">
             <div class="background"></div>
             <img class="user-img">
         </div>
-        <div class="select-img">
+        <div class="select-img" indexid="4">
             <div class="background"></div>
             <img class="user-img">
         </div>
-        <div class="select-img">
+        <div class="select-img" indexid="5">
             <div class="background"></div>
             <img class="user-img">
         </div>
@@ -199,7 +199,12 @@
     });
     function nextPage() {
         if (selectedCount == 4) {
-            window.location.replace('./decorate.html');
+            let imginfo = []; //선택한 사진 순서 가져옴
+            selectedImgs.forEach((element,index)=> {
+                imginfo[index] = element.getAttribute("indexid");
+            });
+            console.log(imginfo);
+            //window.location.replace('./decorate.html');
         } else {
             var target = document.querySelector('button');
             target.textContent = "사진을 4개 선택해 주세요";
