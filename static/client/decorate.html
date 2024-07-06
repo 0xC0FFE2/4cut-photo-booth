@@ -21,6 +21,7 @@
     * {
         font-family: 'MinSans-Regular';
         margin: 0 auto;
+        overflow: hidden;
     }
 
     nav {
@@ -57,7 +58,7 @@
 
     button {
         font-size: 1.5em;
-        margin-top: 50px;
+        margin-top: 10px;
         display: block;
         align-items: center;
         text-align: center;
@@ -160,7 +161,7 @@
     function save() {
         if (selectedDiv) {
             const expires = new Date();
-            const value = selectedDiv.querySelector('img');
+            const value = selectedDiv.querySelector('img').src;
             const name = 'frame';
             document.cookie = `${name}=${value};expires=0;path=/`;
             window.location.replace('./camera.html');
