@@ -115,8 +115,22 @@
     }
 
     function urlLoad() {
-        alert("서버에 고화질 렌더링을 요청합니다. 잠시 기다려 주세요.")
-        window.location.href = "/download/" + data;;
+        alert("서버에 고화질 렌더링을 요청합니다. 잠시 기다려 주세요.");
+        const imageUrl = '/download/' + data; // CDN 이미지 URL
+
+        fetch(imageUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = '대마네컷'+data; // 다운로드될 파일 이름
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url); // 메모리 해제
+            })
+            .catch(() => alert('이미지 다운로드에 실패했습니다.'));
     }
 
     function base64Decode(encodedString) {
