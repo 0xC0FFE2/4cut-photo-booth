@@ -40,7 +40,6 @@
     }
 
     .welcome {
-        margin-top: 100px;
         text-align: center;
         font-size: 2em;
     }
@@ -107,6 +106,15 @@
     .main>.a {
         transition: all 2s ease-in-out;
     }
+
+    .framebox {
+        display: flex;
+        align-items: center;
+    }
+
+    .selected-frame {
+        height: 300px;
+    }
 </style>
 <style>
 
@@ -124,7 +132,8 @@
     <div class="main">
         <a></a>개 사진 선택됨
     </div>
-    <img src="" alt="">
+    <div class="framebox"><img class="selected-frame"></div>
+
     <div class="select-box">
         <div class="select-img" indexid="1">
             <div class="background"></div>
@@ -240,4 +249,12 @@
             anchor.style.color = 'red';
             anchor.textContent = 'NANU-JP2 연결 실패';
         });
+
+    //사전에 선택된 이미지 로드
+    const savedFrameSrc = getCookie('frame');
+    if (savedFrameSrc) {
+        document.querySelectorAll('.selected-frame').forEach(img => {
+            img.src = savedFrameSrc;
+        });
+    }
 </script>
