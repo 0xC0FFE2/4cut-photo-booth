@@ -68,49 +68,44 @@
     }
 
     .user-img {
-        width: 320px;
-        height: 240px;
-        background-size:cover;
+        width: 240px;
+        height: 180px;
+        background-size: cover;
     }
 
     .select-img {
         margin: 10px;
-        width: 320px;
-        height: 240px;
+        width: 240px;
+        height: 180px;
         position: relative;
         overflow: hidden;
         float: left;
     }
 
     .select-img>.background {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(124, 124, 124, 0.5);
         position: absolute;
         font-size: 2em;
         text-align: center;
-        line-height: 240px;
+        line-height: 5em;
         color: aliceblue;
-        width: 320px;
-        height: 240px;
+        width: 240px;
+        height: 180px;
         transition: all 0.5s;
         transform: translateY(240px);
     }
 
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
-    .container {
-        overflow-y: hidden;
-        overflow-x: scroll;
-        cursor: grab;
-    }
-
     .select-box {
-        width: 1700px;
+        display: flex;
+        justify-content: center;
     }
 
     .select-img.selected>.background {
         transform: translateY(0px);
+    }
+
+    .main>.a {
+        transition: all 2s ease-in-out;
     }
 </style>
 <style>
@@ -129,28 +124,27 @@
     <div class="main">
         <a></a>개 사진 선택됨
     </div>
-    <div class="container">
-        <div class="select-box">
-            <div class="select-img">
-                <div class="background"></div>
-                <img class="user-img">
-            </div>
-            <div class="select-img">
-                <div class="background"></div>
-                <img class="user-img">
-            </div>
-            <div class="select-img">
-                <div class="background"></div>
-                <img class="user-img">
-            </div>
-            <div class="select-img">
-                <div class="background"></div>
-                <img class="user-img">
-            </div>
-            <div class="select-img">
-                <div class="background"></div>
-                <img class="user-img">
-            </div>
+    <div></div>
+    <div class="select-box">
+        <div class="select-img">
+            <div class="background"></div>
+            <img class="user-img">
+        </div>
+        <div class="select-img">
+            <div class="background"></div>
+            <img class="user-img">
+        </div>
+        <div class="select-img">
+            <div class="background"></div>
+            <img class="user-img">
+        </div>
+        <div class="select-img">
+            <div class="background"></div>
+            <img class="user-img">
+        </div>
+        <div class="select-img">
+            <div class="background"></div>
+            <img class="user-img">
         </div>
     </div>
     <button onclick="nextPage();">
@@ -167,7 +161,6 @@
     const userImgs = document.querySelectorAll('.user-img');
     const selectImgs = document.querySelectorAll(".select-img");
     const backgrounds = document.querySelectorAll(".background");
-    const container = document.querySelector(".container");
 
     let selectedImgs = [];
 
@@ -178,33 +171,28 @@
         }
         return null;
     }
-    function updateCounts(){
+    function updateCounts() {
         selectedCount = 0;
-        selectedImgs.forEach(function(e, i){
-            e.children[0].innerText = i+1;
+        selectedImgs.forEach(function (e, i) {
+            e.children[0].innerText = i + 1;
             selectedCount++;
         });
         anchor.innerText = selectedCount;
-        
     }
-    container.addEventListener("scroll", function(e){
-        container.scrollLeft += 10;
-    })
     // 모든 이미지에 사진 넣기
     userImgs.forEach(function (img, index) {
         img.src = `/gateway/cdn/image/${pic_id}-${index}`;
     });
     selectImgs.forEach(function (e) {
         e.addEventListener("click", function () {
-            e.classList.toggle("selected");
-            if (selectedImgs.includes(e)){
-                for(let i = 0; i < selectedImgs.length; i++) {
-                    if (selectedImgs[i] === e) {
-                        selectedImgs.splice(i, 1);
-                    }
-                }
+            if (selectedImgs.includes(e)) {
+                selectedImgs = selectedImgs.filter(img => img !== e);
+                e.classList.remove("selected");
             } else {
-                selectedImgs.push(e);
+                if (!(selectedCount == 4)) {
+                    selectedImgs.push(e);
+                    e.classList.add("selected");
+                }
             }
             updateCounts();
         });

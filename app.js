@@ -9,10 +9,6 @@ const cdnRouter = require("./routes/cdn");
 
 app.use(express.static(path.join(__dirname, '/static')));
 
-app.get("/hello", (req, res) => {
-    return res.status(400).send("Unknown");
-});
-
 app.get("/gateway", (req, res) => {
     console.log("[INFO] Gateway Pinged");
     return res.json({ping:Date.now()});
