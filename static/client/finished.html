@@ -117,11 +117,18 @@
     <button onclick="openPopup()">
         QR코드 확인하기
     </button>
+    <button onclick="Redirect()" style="background-color: rgb(192, 131, 131);">
+        처음으로 돌아가기
+    </button>
 </body>
 
 </html>
 <script>
-
+    function Redirect() {
+        if (confirm("첫 페이지로 이동하시겠습니까?")) {
+            window.location.href = "./start.html"; 
+        }
+    }
     fetch('/gateway/', {
         credentials: 'include'
     })
@@ -167,7 +174,7 @@
         var top = window.innerHeight / 2 - height / 2;
 
         var popup = window.open('', '_blank', `width=${width}, height=${height}, left=${left}, top=${top}`);
-        console.log(URL_FRONT+base64Encode(VIEW_URL));//localhost 디버깅용
+        console.log(URL_FRONT + base64Encode(VIEW_URL));//localhost 디버깅용
         popup.document.write(`<h2 style="text-align:center;">QR을 스마트폰 기본 카메라로 스캔하세요</h2><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${URL_FRONT}${base64Encode(VIEW_URL)}" style="max-width: 100%; max-height: 100%; display: block; margin: auto;">`);
     }
 </script>

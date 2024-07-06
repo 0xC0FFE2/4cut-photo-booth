@@ -85,10 +85,10 @@
 
 <body style="overflow-x: hidden">
     <p id="blinkText">*영상은 따로 저장기능이 없습니다. 화면 녹화를 이용해 주세요..</p>
-    <div class="thx">대마네컷</div>
+    <div class="thx" onclick="urlLoad()">대마네컷</div>
     <div class="date">2024.07.07</div>
     <div class="iframe-container">
-        <iframe src="" class="display_mp4" onclick="urlLoad()">
+        <iframe src="" class="display_mp4">
         </iframe>
     </div>
     </iframe>
@@ -98,7 +98,7 @@
 </html>
 
 <script>
-    alert("사진 프레임을 클릭하시면 사진을 다운받으실 수 있습니다");
+    alert("'대마네컷'글자를 클릭하시면 사진을 다운받으실 수 있습니다");
     function getDataFromUrlParameter(parameterName) {
         var url = window.location.href;
         var queryString = url.split('?')[1];
