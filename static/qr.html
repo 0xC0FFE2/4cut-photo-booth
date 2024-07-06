@@ -86,7 +86,7 @@
 <body style="overflow-x: hidden">
     <p id="blinkText">*영상은 따로 저장기능이 없습니다. 화면 녹화를 이용해 주세요..</p>
     <div class="thx" onclick="urlLoad()">대마네컷</div>
-    <div class="date">2024.07.07</div>
+    <div class="date" onclick="urlLoad()">2024.07.07</div>
     <div class="iframe-container">
         <iframe src="" class="display_mp4">
         </iframe>
@@ -115,7 +115,8 @@
     }
 
     function urlLoad() {
-        window.location.href = "./asd.html";
+        alert("서버에 고화질 렌더링을 요청합니다. 잠시 기다려 주세요.")
+        window.location.href = "/download/" + data;;
     }
 
     function base64Decode(encodedString) {
