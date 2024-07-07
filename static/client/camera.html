@@ -81,6 +81,10 @@
     .photo-count {
         font-size: 2em;
     }
+
+    .block {
+        opacity: 0.1;
+    }
 </style>
 
 <body>
@@ -191,6 +195,7 @@
 
     function startRecording() {
         body.style.backgroundColor = 'bisque';
+        recordButton.style.opacity = '0';
         captureImage();
         mediaRecorder.stop(); //영상 중지
 
@@ -201,7 +206,8 @@
         setTimeout(() => {
             body.style.backgroundColor = 'white';
             mediaRecorder.start();
-        }, 500);
+            recordButton.style.opacity = '1';
+        }, 2000);
     }
     function captureImage() {
         const canvas = document.createElement('canvas');
