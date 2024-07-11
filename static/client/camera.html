@@ -149,6 +149,7 @@
 
     const videoElement = document.querySelector('video');
     const recordButton = document.getElementById('recordBtn');
+    let capture_on = true;
 
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
@@ -162,6 +163,7 @@
             };
 
             mediaRecorder.onstop = () => {
+                capture_on = false;
                 const blob = new Blob(recordedChunks, {
                     type: 'video/mp4'
                 });
@@ -190,11 +192,11 @@
     recordButton.addEventListener('click', startRecording);
 
     document.addEventListener('keydown', function (event) {
-        var recordButton = document.getElementById('recordButton');
-
-        // 딜레이 체크
-        if (recordButton.style.display === 'block') {
-            startRecording(); // 특정 함수 실행
+        if (event.key == 'Enter') {
+            
+            if (capture_on) {
+                startRecording();
+            }
         }
     });
 
@@ -209,6 +211,7 @@
         picAnchor.style.color = 'black';
         picAnchor.textContent = pic_count; 3
         setTimeout(() => {
+            capture_on = true;
             body.style.backgroundColor = 'white';
             mediaRecorder.start();
             recordButton.style.display = 'block';
