@@ -83,7 +83,7 @@
     }
 </style>
 
-<body>
+<body id="body">
     <nav>
         <p class="home">
             대마네컷 WEB - <a>연결 시도중<a>
@@ -176,7 +176,7 @@
                     mediaRecorder.stop();
                     setTimeout(function () {
                         location.href = './photo-select.html'; // 다음 페이지로 이동
-                    }, 3000);
+                    }, 6000);
 
                 }
             };
@@ -193,7 +193,6 @@
 
     document.addEventListener('keydown', function (event) {
         if (event.key == 'Enter') {
-            
             if (capture_on) {
                 startRecording();
             }
@@ -201,7 +200,7 @@
     });
 
     function startRecording() {
-        body.style.backgroundColor = 'bisque';
+        body.style.backgroundColor = '#db3507';
         recordButton.style.display = 'none';
         captureImage();
         mediaRecorder.stop(); //영상 중지
@@ -211,11 +210,8 @@
         picAnchor.style.color = 'black';
         picAnchor.textContent = pic_count; 3
         setTimeout(() => {
-            capture_on = true;
             body.style.backgroundColor = 'white';
-            mediaRecorder.start();
-            recordButton.style.display = 'block';
-        }, 3000);
+        },1000);
     }
     function captureImage() {
         const canvas = document.createElement('canvas');
@@ -259,6 +255,9 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Video uploaded successfully:', data);
+                capture_on = true;
+                recordButton.style.display = 'block';
+                mediaRecorder.start();
             })
             .catch(error => {
                 console.error('Error uploading video:', error);
