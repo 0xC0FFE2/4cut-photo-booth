@@ -15,111 +15,191 @@
     }
 
     * {
-        font-family: 'MinSans-Regular';
-        margin: 0 auto;
+        font-family: 'MinSans-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
-        background-color: rgb(211, 211, 211);
+        background-color: #f8f9fa;
+        color: #191f28;
+        line-height: 1.5;
     }
 
     nav {
-        background-color: rgb(0, 0, 0);
-        color: rgb(255, 255, 255);
-        height: 40px;
+        background-color: #191f28;
+        color: #ffffff;
+        height: 56px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     nav>p {
-        line-height: 40px;
-        margin-left: 20px;
+        line-height: 56px;
+        margin-left: 24px;
         text-align: left;
-    }
-
-    .home>li {
-        text-align: right;
+        font-size: 14px;
+        font-weight: 500;
     }
 
     .home>a {
-        color: rgb(255, 129, 129);
+        color: #3182f6;
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 24px;
     }
 
     .welcome {
         text-align: center;
-        font-size: 4em;
+        margin: 40px 0;
     }
 
-    .welcome>p {
-        font-size: 0.8em;
+    .welcome-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
     }
 
-    .main {
+    .welcome-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #191f28;
+        margin-bottom: 8px;
+    }
+
+    .welcome-subtitle {
+        font-size: 18px;
+        color: #8b95a1;
+        font-weight: 500;
+    }
+
+    .result-container {
+        border-radius: 16px;
+        padding: 24px;
+        margin: 32px 0;
+        margin-right: 60px;
         text-align: center;
-    }
-
-    button {
-        font-size: 1.5em;
-        margin-top: 10px;
-        display: block;
-        align-items: center;
-        text-align: center;
-        width: 200px;
-        height: 50px;
-        border-radius: 0px;
-        background-color: rgb(150, 150, 150);
-        border: 1px solid black;
     }
 
     .iframe-container {
-        margin-top: 10px;
+        position: relative;
         width: 100%;
         height: 500px;
         overflow: hidden;
-        position: relative;
-        text-align: center;
-        align-items: center;
+        border-radius: 12px;
+        margin-bottom: 24px;
     }
 
     .iframe-container iframe {
-        align-items: center;
         position: absolute;
         width: 140%;
         height: 400.7%;
         transform: scale(0.253);
         transform-origin: top left;
         border: 0;
+        border-radius: 12px;
     }
 
-    .qr {
+    .display_mp4 {
+        margin-left: 50px !important;
+    }
+
+    .display_png {
+        margin-left: -210px !important;
+    }
+
+    .button-group {
         display: flex;
+        gap: 16px;
+        flex-direction: column;
         align-items: center;
+    }
+
+    button {
+        width: 100%;
+        max-width: 320px;
+        height: 56px;
+        border-radius: 12px;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .primary-button {
+        background-color: #3182f6;
+        color: #ffffff;
+    }
+
+    .primary-button:hover {
+        background-color: #1c6ef2;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
+    }
+
+    .secondary-button {
+        background-color: #f8f9fa;
+        color: #4e5968;
+        border: 1px solid #e5e8eb;
+    }
+
+    .secondary-button:hover {
+        background-color: #e5e8eb;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    @media (min-width: 480px) {
+        .button-group {
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        button {
+            max-width: 200px;
+        }
     }
 </style>
 
 <body>
     <nav>
         <p class="home">
-            대마네컷 WEB - <a>연결 시도중<a>
+            대마네컷 WEB - <a>연결 시도중</a>
         </p>
-
     </nav>
-    <div class="welcome">
-        <p>끝났어요!</p>
+    
+    <div class="container">
+        <div class="welcome">
+            <div class="welcome-icon">🎉</div>
+            <div class="welcome-title">끝났어요!</div>
+            <div class="welcome-subtitle">이용해 주셔서 감사합니다</div>
+        </div>
+        
+        <div class="result-container">
+            <div class="iframe-container">
+                <iframe src="" class="display_mp4"></iframe>
+                <iframe src="" class="display_png"></iframe>
+            </div>
+            
+            <div class="button-group">
+                <button class="primary-button" onclick="downloadPDF()">
+                    PDF 다운로드
+                </button>
+                <button class="secondary-button" onclick="Redirect()">
+                    처음으로 돌아가기
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="main">
-        이용해 주셔서 감사합니다
-    </div>
-    <div class="iframe-container">
-        <iframe src="" class="display_mp4" style="margin-left: 50px;"></iframe>
-        </iframe>
-        <iframe src="" class="display_png" style="margin-left: -210px;">
-        </iframe>
-    </div>
-    <button onclick="openPopup()">
-        QR코드 확인하기
-    </button>
-    <button onclick="Redirect()" style="background-color: rgb(192, 131, 131);">
-        처음으로 돌아가기
-    </button>
 </body>
 
 </html>
@@ -157,24 +237,28 @@
     }
 
     const picID = base64Encode(getCookie("PicID"));
-    const frame = base64Encode(getCookie("Frame-Info").split('.')[0]);
+    const frame = base64Encode(getCookie("Frame-Info"));
     const imgSel = base64Encode(getCookie("Selected-Pic-ID"));
     const URL_FRONT = window.location.href.split('/').slice(0, 3).join('/') + '/qr.html?data=';
     const VIEW_URL = picID + "?frame=" + frame + "&picture_id=" + imgSel;
+    const QR_DATA = URL_FRONT + base64Encode(VIEW_URL);
+    const RENDER_URL = VIEW_URL + "&qr=" + encodeURIComponent(QR_DATA);
+    
+    // 디버깅 정보 출력
+    console.log('클라이언트 디버깅:');
+    console.log('Frame-Info 쿠키:', getCookie("Frame-Info"));
+    console.log('frame (base64):', frame);
+    console.log('VIEW_URL:', VIEW_URL);
+    console.log('QR_DATA:', QR_DATA);
+    console.log('RENDER_URL:', RENDER_URL);
 
-    var iframe = document.querySelector('.display_mp4');// 영상 재생
-    iframe.src = "/render/mp4/" + VIEW_URL;
-    var iframe = document.querySelector('.display_png');//이미지 표시
-    iframe.src = "/render/png/" + VIEW_URL;
+    var iframe = document.querySelector('.display_mp4');
+    iframe.src = "/render/mp4/" + RENDER_URL;
+    var iframe = document.querySelector('.display_png');
+    iframe.src = "/render/png/" + RENDER_URL;
 
-    function openPopup() { //QR팝업 표시
-        var width = 600;
-        var height = 400;
-        var left = window.innerWidth / 2 - width / 2;
-        var top = window.innerHeight / 2 - height / 2;
-
-        var popup = window.open('', '_blank', `width=${width}, height=${height}, left=${left}, top=${top}`);
-        console.log(URL_FRONT + base64Encode(VIEW_URL));//localhost 디버깅용
-        popup.document.write(`<h2 style="text-align:center;">QR을 스마트폰 기본 카메라로 스캔하세요</h2><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${URL_FRONT}${base64Encode(VIEW_URL)}" style="max-width: 100%; max-height: 100%; display: block; margin: auto;">`);
+    function downloadPDF() {
+        const downloadUrl = "/download/pdf/" + RENDER_URL;
+        window.open(downloadUrl, '_blank');
     }
 </script>

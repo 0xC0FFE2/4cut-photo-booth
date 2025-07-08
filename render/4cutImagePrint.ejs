@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4컷 사진</title>
+</head>
+<body>
+    <div class="photo-container">
+        <!-- 왼쪽 네컷 -->
+        <div class="left-panel">
+            <img src="/assets/frames/<%= frame_url %>" class="frame left-frame" alt="프레임">
+            <img src="/gateway/cdn/image/<%= imgid1 %>" class="userimg1 left-img" alt="사진1">
+            <img src="/gateway/cdn/image/<%= imgid2 %>" class="userimg2 left-img" alt="사진2">
+            <img src="/gateway/cdn/image/<%= imgid3 %>" class="userimg3 left-img" alt="사진3">
+            <img src="/gateway/cdn/image/<%= imgid4 %>" class="userimg4 left-img" alt="사진4">
+            
+            <% if (typeof qrData !== 'undefined' && qrData && qrData !== '') { %>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= encodeURIComponent(qrData) %>" 
+                 class="qr-code left-qr" alt="QR코드" style="border: 2px solid rgb(255, 255, 255) !important; background: rgb(255, 255, 255) !important;">
+            <% } else { %>
+            <div class="qr-code left-qr" style="background: rgb(255, 255, 255); color: gray; text-align: center; line-height: 60px; font-size: 10px;">NO QR</div>
+            <% } %>
+        </div>
+        
+        <!-- 오른쪽 네컷 -->
+        <div class="right-panel">
+            <img src="/assets/frames/<%= frame_url %>" class="frame right-frame" alt="프레임">
+            <img src="/gateway/cdn/image/<%= imgid1 %>" class="userimg1 right-img" alt="사진1">
+            <img src="/gateway/cdn/image/<%= imgid2 %>" class="userimg2 right-img" alt="사진2">
+            <img src="/gateway/cdn/image/<%= imgid3 %>" class="userimg3 right-img" alt="사진3">
+            <img src="/gateway/cdn/image/<%= imgid4 %>" class="userimg4 right-img" alt="사진4">
+            
+            <% if (typeof qrData !== 'undefined' && qrData && qrData !== '') { %>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= encodeURIComponent(qrData) %>" 
+                 class="qr-code right-qr" alt="QR코드" style="border: 2px solid rgb(255, 255, 255) !important; background: rgb(255, 255, 255) !important;">
+            <% } else { %>
+            <div class="qr-code right-qr" style="background: rgb(255, 255, 255); color: gray; text-align: center; line-height: 60px; font-size: 10px;">NO QR</div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+    }
+    
+    .photo-container {
+        position: relative;
+        width: 1280px;
+        height: 1920px;
+        margin: 0 auto;
+        background-color: #ffffff;
+    }
+    
+    .left-panel, .right-panel {
+        position: absolute;
+        width: 640px;
+        height: 1920px;
+    }
+    
+    .left-panel {
+        left: 0;
+    }
+    
+    .right-panel {
+        left: 640px;
+    }
+    
+    .frame {
+        width: 640px;
+        height: auto;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 0;
+    }
+    
+    .userimg1, .userimg2, .userimg3, .userimg4 {
+        width: 550px;
+        height: auto;
+        position: absolute;
+        object-fit: cover;
+        z-index: 5;
+    }
+    
+    .left-img, .right-img {
+        left: 45px;
+    }
+    
+    .userimg1 {
+        top: 10px;
+    }
+    
+    .userimg2 {
+        top: 430px;
+    }
+    
+    .userimg3 {
+        top: 850px;
+    }
+    
+    .userimg4 {
+        top: 1250px;
+    }
+    
+    .qr-code {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 120px;
+        height: 120px;
+        z-index: 15000 !important;
+        background-color: white !important;
+        padding: 4px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>

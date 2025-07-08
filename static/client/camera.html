@@ -15,104 +15,312 @@
     }
 
     * {
-        font-family: 'MinSans-Regular';
-        margin: 0 auto;
+        font-family: 'MinSans-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
-        transition: all 0.5s ease-in-out;
+        background-color: #ffffff;
+        color: #191f28;
+        line-height: 1.5;
+        transition: background-color 0.3s ease;
     }
 
     nav {
-        background-color: rgb(0, 0, 0);
-        color: rgb(255, 255, 255);
-        height: 40px;
+        background-color: #191f28;
+        color: #ffffff;
+        height: 56px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     nav>p {
-        line-height: 40px;
-        margin-left: 20px;
+        line-height: 56px;
+        margin-left: 24px;
         text-align: left;
-    }
-
-    .home>li {
-        text-align: right;
+        font-size: 14px;
+        font-weight: 500;
     }
 
     .home>a {
-        color: rgb(255, 129, 129);
+        color: #3182f6;
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+    }
+
+    .camera-section {
+        flex: 2;
+    }
+
+    .frame-preview-section {
+        flex: 1;
+        max-width: 300px;
+    }
+
+    .status-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e5e8eb;
+        font-size: 14px;
+        color: #8b95a1;
+    }
+
+    .ping {
+        color: #3182f6;
+        font-weight: 600;
     }
 
     .welcome {
         text-align: center;
-        font-size: 3em;
+        margin: 40px 0;
     }
 
-    .welcome>p {
-        font-size: 0.8em;
-        margin: 0 0;
+    .welcome-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
     }
 
-    .main {
-        text-align: center;
-    }
-
-    button {
-        font-size: 1.5em;
-        display: block;
-        align-items: center;
-        text-align: center;
-        width: 200px;
-        height: 50px;
-        border-radius: 0px;
-        background-color: rgb(150, 150, 150);
-        border: 1px solid black;
-    }
-
-    .camera-box {
-        width: 500px;
-        height: 500px;
-    }
-
-    .ping {
-        color: rgb(80, 80, 80);
+    .welcome-info {
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        padding: 16px;
+        margin: 0 auto;
+        max-width: 300px;
     }
 
     .photo-count {
-        font-size: 2em;
+        font-size: 24px;
+        font-weight: 700;
+        color: #3182f6;
+        margin-right: 4px;
+    }
+
+    .photo-text {
+        font-size: 16px;
+        color: #4e5968;
+        font-weight: 500;
+    }
+
+    .camera-container {
+        text-align: center;
+        margin: 40px 0;
+    }
+
+    .flash-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(45deg, #ffffff, #f8f9fa);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 1000;
+        transition: opacity 0.1s ease;
+    }
+
+    .flash-overlay.active {
+        opacity: 0.9;
+    }
+
+    .camera-box {
+        width: 100%;
+        max-width: 500px;
+        height: 375px;
+        border-radius: 16px;
+        object-fit: cover;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fa;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .camera-box.capturing {
+        transform: scale(0.98);
+        box-shadow: 0 8px 32px rgba(49, 130, 246, 0.3);
+        border: 3px solid #3182f6;
+    }
+
+    button {
+        width: 100%;
+        max-width: 320px;
+        height: 56px;
+        border-radius: 12px;
+        background-color: #3182f6;
+        color: #ffffff;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin: 32px auto;
+        display: block;
+        box-shadow: 0 2px 8px rgba(49, 130, 246, 0.2);
+    }
+
+    button:hover {
+        background-color: #1c6ef2;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
+    }
+
+    button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(49, 130, 246, 0.2);
+    }
+
+    button:disabled {
+        background-color: #e5e8eb;
+        color: #8b95a1;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .capture-hint {
+        text-align: center;
+        margin-top: 16px;
+        font-size: 14px;
+        color: #8b95a1;
+    }
+
+    .frame-preview {
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        margin-top: 40px;
+    }
+
+    .frame-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #191f28;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .frame-container {
+        position: relative;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .frame-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .frame-preview-section {
+            max-width: 100%;
+            order: -1;
+        }
+        
+        .frame-preview {
+            margin-top: 20px;
+        }
     }
 </style>
 
 <body id="body">
+    <div class="flash-overlay" id="flashOverlay"></div>
     <nav>
         <p class="home">
-            대마네컷 WEB - <a>연결 시도중<a>
+            대마네컷 WEB - <a>연결 시도중</a>
         </p>
     </nav>
-    Client v3. Server Ping <a class="ping">--</a>
-    <div class="welcome">
-        📷<br>
-        <p id="info" style="font-size: 0.4em;"><a class="photo-count">0</a>장 남았습니다</p>
+    
+    <div class="status-bar">
+        <span>Client v3</span>
+        <span>Server Ping <a class="ping">--</a></span>
     </div>
-    <div class="main">
-        <video class="camera-box" autoplay></video>
+    
+    <div class="container">
+        <div class="camera-section">
+            <div class="welcome">
+                <div class="welcome-icon">📷</div>
+                <div class="welcome-info">
+                    <span class="photo-count">0</span><span class="photo-text">장 남았습니다</span>
+                </div>
+            </div>
+            
+            <div class="camera-container">
+                <video class="camera-box" autoplay></video>
+            </div>
+            
+            <button id="recordBtn">
+                사진 찍기
+            </button>
+            
+            <div class="capture-hint">
+                Enter 키를 눌러도 촬영됩니다
+            </div>
+        </div>
+        
+        <div class="frame-preview-section">
+            <div class="frame-preview">
+                <div class="frame-title">선택한 액자</div>
+                <div class="frame-container">
+                    <img class="frame-image" id="selectedFrame" src="" alt="선택된 액자">
+                </div>
+            </div>
+        </div>
     </div>
-    <button id="recordBtn">
-        사진 찍기
-    </button>
 </body>
 
 </html>
 <script>var pic_count = 5;
     const picAnchor = document.querySelector('.photo-count');
     const body = document.querySelector('body');
+    const selectedFrame = document.getElementById('selectedFrame');
+    const recordButton = document.getElementById('recordBtn');
+    let isUploading = false;
+    
     picAnchor.textContent = pic_count;
+    
+    // 선택된 프레임 로드 및 표시
+    function loadSelectedFrame() {
+        const savedFrameSrc = getCookie('frame');
+        if (savedFrameSrc) {
+            selectedFrame.src = savedFrameSrc;
+        }
+    }
+    
+    function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) {
+            return match[2];
+        }
+        return null;
+    }
 
     // 현 사진의 이미지셋 번호 지정
     const expires = new Date();
     const value = Math.floor(10000 + Math.random() * 90000);
     const name = 'PicID';
     document.cookie = `${name}=${value};expires=0;path=/`;
+    
+    // 페이지 로드 시 프레임 로드
+    loadSelectedFrame();
 
     // API 호출
     fetch('/gateway')
@@ -148,7 +356,6 @@
     let recordedChunks = [];
 
     const videoElement = document.querySelector('video');
-    const recordButton = document.getElementById('recordBtn');
     let capture_on = true;
 
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -163,23 +370,13 @@
             };
 
             mediaRecorder.onstop = () => {
-                capture_on = false;
                 const blob = new Blob(recordedChunks, {
                     type: 'video/mp4'
                 });
                 recordedChunks = [];
                 uploadVideo(blob);
-                picAnchor.style.color = 'black';
-                picAnchor.textContent = pic_count;
-
-                if (pic_count === 0) {
-                    mediaRecorder.stop();
-                    setTimeout(function () {
-                        location.href = './photo-select.html'; // 다음 페이지로 이동
-                    }, 6000);
-
-                }
             };
+            
             mediaRecorder.start();
         })
         .catch(error => {
@@ -189,29 +386,51 @@
             anchor.textContent = '카메라 오류 발생!';
         });
 
-    recordButton.addEventListener('click', startRecording);
+    recordButton.addEventListener('click', function() {
+        if (pic_count > 0 && !isUploading && capture_on) {
+            startRecording();
+        }
+    });
 
     document.addEventListener('keydown', function (event) {
         if (event.key == 'Enter') {
-            if (capture_on) {
+            if (pic_count > 0 && !isUploading && capture_on) {
                 startRecording();
             }
         }
     });
 
     function startRecording() {
-        body.style.backgroundColor = '#db3507';
-        recordButton.style.display = 'none';
+        if (pic_count <= 0 || isUploading) return;
+        
+        isUploading = true;
+        capture_on = false;
+        
+        // 플래시 효과
+        const flashOverlay = document.getElementById('flashOverlay');
+        const videoElement = document.querySelector('video');
+        
+        videoElement.classList.add('capturing');
+        flashOverlay.classList.add('active');
+        
+        recordButton.disabled = true;
+        recordButton.textContent = '처리 중...';
+        
+        // 사진 촬영
         captureImage();
-        mediaRecorder.stop(); //영상 중지
-
+        
+        // 녹화 중지
+        mediaRecorder.stop();
+        
+        // 카운트 감소
         pic_count--;
-
-        picAnchor.style.color = 'black';
-        picAnchor.textContent = pic_count; 3
+        picAnchor.textContent = pic_count;
+        
+        // 플래시 효과 제거
         setTimeout(() => {
-            body.style.backgroundColor = 'white';
-        },1000);
+            flashOverlay.classList.remove('active');
+            videoElement.classList.remove('capturing');
+        }, 200);
     }
     function captureImage() {
         const canvas = document.createElement('canvas');
@@ -247,7 +466,7 @@
     function uploadVideo(blob) {
         const formData = new FormData();
         formData.append('video', blob, `${pic_count}-vid.mp4`);
-        // GateWay API에 촬영한 영상 업로드
+        
         fetch('/gateway/media/upload', {
             method: 'POST',
             body: formData,
@@ -255,12 +474,31 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Video uploaded successfully:', data);
-                capture_on = true;
-                recordButton.style.display = 'block';
-                mediaRecorder.start();
+                
+                // 업로드 완료 후 상태 처리
+                isUploading = false;
+                
+                if (pic_count <= 0) {
+                    // 모든 사진 촬영 완료, 다음 페이지로 이동
+                    recordButton.textContent = '촬영 완료!';
+                    setTimeout(() => {
+                        location.href = './photo-select.html';
+                    }, 2000);
+                } else {
+                    // 다음 사진 촬영 준비
+                    capture_on = true;
+                    recordButton.disabled = false;
+                    recordButton.textContent = '사진 찍기';
+                    mediaRecorder.start();
+                }
             })
             .catch(error => {
                 console.error('Error uploading video:', error);
+                // 에러 발생 시도 상태 초기화
+                isUploading = false;
+                capture_on = true;
+                recordButton.disabled = false;
+                recordButton.textContent = '사진 찍기';
             });
     }
 </script>

@@ -14,119 +14,230 @@
         font-style: normal;
     }
 
-    body {
-        background-color: rgb(212, 212, 212);
+    * {
+        font-family: 'MinSans-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    * {
-        font-family: 'MinSans-Regular';
-        margin: 0 auto;
-        overflow: hidden;
+    body {
+        background-color: #f8f9fa;
+        color: #191f28;
+        line-height: 1.5;
     }
 
     nav {
-        background-color: rgb(0, 0, 0);
-        color: rgb(255, 255, 255);
-        height: 40px;
+        background-color: #191f28;
+        color: #ffffff;
+        height: 56px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     nav>p {
-        line-height: 40px;
-        margin-left: 20px;
+        line-height: 56px;
+        margin-left: 24px;
         text-align: left;
-    }
-
-    .home>li {
-        text-align: right;
+        font-size: 14px;
+        font-weight: 500;
     }
 
     .home>a {
-        color: rgb(255, 129, 129);
+        color: #3182f6;
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 10px;
     }
 
     .welcome {
         text-align: center;
+        margin: 40px 0;
     }
 
-    .welcome>p {
-        font-size: 2em;
+    .welcome-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #191f28;
+        margin-bottom: 8px;
     }
 
-    .main {
-        text-align: center;
+    .welcome-subtitle {
+        font-size: 16px;
+        color: #8b95a1;
+        font-weight: 500;
+        background-color: #fff3cd;
+        color: #856404;
+        padding: 8px 16px;
+        border-radius: 8px;
+        display: inline-block;
+        margin-top: 8px;
     }
 
-    button {
-        font-size: 1.5em;
-        margin-top: 10px;
-        display: block;
-        align-items: center;
-        text-align: center;
-        width: 200px;
-        height: 50px;
-        border-radius: 0px;
-        background-color: rgb(150, 150, 150);
-        border: 1px solid black;
+    .frame-guide {
+        margin-top: 16px;
+    }
+
+    .guide-text {
+        font-size: 14px;
+        color: #3182f6;
+        font-weight: 600;
+        background-color: #e8f3ff;
+        padding: 12px 16px;
+        border-radius: 8px;
+        display: inline-block;
     }
 
     .images-container {
         display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0.2vw;
+        max-width: 100%;
+        margin: 60px auto 80px;
         justify-content: center;
-        align-items: center;
-        gap: 10px;
+        padding: 0 5px;
+        position: relative;
     }
 
     .images {
         cursor: pointer;
-        opacity: 0.5;
+        padding: 0px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: calc((100% - 1.4vw) / 8);
+        min-width: 80px;
+        max-width: 300px;
+        flex-shrink: 1;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transform-origin: center bottom;
     }
 
-    img {
-        height: 500px;
+    .images:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .selected {
-        opacity: 1;
-        border: 3px solid rgba(255, 0, 0, 0.5);
+    .images img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3/4;
+        object-fit: contain;
     }
-</style>
-<style>
+
+    .images.selected {
+        transform: translateY(-20px) scale(1.05) rotate(-2deg);
+        box-shadow: 0 20px 40px rgba(49, 130, 246, 0.3), 0 8px 16px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        border: 2px solid #3182f6;
+    }
+
+    .images.selected:hover {
+        transform: translateY(-22px) scale(1.05) rotate(-2deg);
+        box-shadow: 0 25px 50px rgba(49, 130, 246, 0.4), 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .images-container:has(.selected) .images:not(.selected) {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+
+    button {
+        width: 100%;
+        max-width: 320px;
+        height: 56px;
+        border-radius: 16px;
+        background-color: #3182f6;
+        color: #ffffff;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 20px auto 0;
+        display: block;
+        box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
+    }
+
+    button:hover {
+        background-color: #1c6ef2;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(49, 130, 246, 0.4);
+    }
+
+    button:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
+    }
+
+    button:disabled {
+        background-color: #e5e8eb;
+        color: #8b95a1;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
 
 </style>
 
 <body>
     <nav>
         <p class="home">
-            대마네컷 WEB - <a>연결 시도중<a>
+            대마네컷 WEB - <a>연결 시도중</a>
         </p>
-
     </nav>
-    <div class="welcome">
-        <p>액자를 선택해 주세요</p>❌선택 후에는 바꿀수 없어요
+    
+    <div class="container">
+        <div class="welcome">
+            <div class="welcome-title">액자를 선택해 주세요</div>
+            <div class="welcome-subtitle">❌ 선택 후에는 바꿀수 없어요</div>
+            <div class="frame-guide">
+                <div class="guide-text">위에서부터 1번 → 2번 → 3번 → 4번 순서로 사진이 배치됩니다</div>
+            </div>
+        </div>
+        
+        <div class="images-container">
+            <div class="images">
+                <img src="/assets/frames/FRAME01.png">
+            </div>
+            <div class="images">
+                <img src="/assets/frames/FRAME02.png">
+            </div>
+            <div class="images">
+                <img src="/assets/frames/FRAME03.png">
+            </div>
+            <div class="images">
+                <img src="/assets/frames/FRAME04.png">
+            </div>
+            <div class="images">
+                <img src="/assets/frames/FRAME05.png">
+            </div>
+            <div class="images">
+                <img src="/assets/frames/FRAME06.png">
+            </div>
+            <div class="images">
+                <img src="/assets/frames/FRAME07.png">
+            </div>
+            <div class="images">
+                <img src="/assets/frames/FRAME08.png">
+            </div>
+        </div>
+        
+        <button id="startBtn" onclick="save();" disabled>
+            프레임을 선택해주세요
+        </button>
     </div>
-    <div class="images-container">
-        <div class="images">
-            <img src="/assets/panels/4cut-booth-display-panel-design-love.png">
-        </div>
-        <div class="images">
-            <img src="/assets/panels/4cut-booth-display-panel-design-black.png">
-        </div>
-        <div class="images">
-            <img src="/assets/panels/4cut-booth-display-panel-design-rainbow.png">
-        </div>
-        <div class="images">
-            <img src="/assets/panels/4cut-booth-display-panel-design-white.png">
-        </div>
-        <div class="images">
-            <img src="/assets/panels/4cut-booth-display-panel-design-silver.png">
-        </div>
-        <div class="images">
-            <img src="/assets/panels/4cut-booth-display-panel-design-dsm.png">
-        </div>
-    </div>
-    <button onclick="save();">
-        시작하기
-    </button>
 </body>
 
 </html>
@@ -151,6 +262,8 @@
         });
 
     document.addEventListener('DOMContentLoaded', function () {
+        const startBtn = document.getElementById('startBtn');
+        
         document.querySelectorAll('.images').forEach(div => {
             div.addEventListener('click', function () {
                 if (selectedDiv) {
@@ -158,6 +271,9 @@
                 }
                 selectedDiv = div;
                 selectedDiv.classList.add('selected');
+                
+                startBtn.disabled = false;
+                startBtn.textContent = '촬영 시작하기';
             });
         })
     })
@@ -168,6 +284,12 @@
             const name = 'frame';
             document.cookie = `${name}=${value};expires=0;path=/`;
             window.location.replace('./camera.html');
+        } else {
+            const startBtn = document.getElementById('startBtn');
+            startBtn.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                startBtn.style.animation = '';
+            }, 500);
         }
     }
 </script>

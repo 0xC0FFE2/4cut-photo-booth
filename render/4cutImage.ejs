@@ -1,44 +1,97 @@
 <!DOCTYPE html>
-<img src="/assets/frames/<%= frame_url %>">
-<img src="/gateway/cdn/image/<%= imgid1 %>" class="userimg1">
-<img src="/gateway/cdn/image/<%= imgid2 %>" class="userimg2">
-<img src="/gateway/cdn/image/<%= imgid3 %>" class="userimg3">
-<img src="/gateway/cdn/image/<%= imgid4 %>" class="userimg4">
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4컷 사진</title>
+</head>
+<body>
+    <div class="photo-container">
+        <img src="/assets/frames/<%= frame_url %>" class="frame" alt="프레임">
+        <img src="/gateway/cdn/image/<%= imgid1 %>" class="userimg1" alt="사진1">
+        <img src="/gateway/cdn/image/<%= imgid2 %>" class="userimg2" alt="사진2">
+        <img src="/gateway/cdn/image/<%= imgid3 %>" class="userimg3" alt="사진3">
+        <img src="/gateway/cdn/image/<%= imgid4 %>" class="userimg4" alt="사진4">
+        
+        <% if (typeof qrData !== 'undefined' && qrData && qrData !== '') { %>
+        <!-- QR코드 표시: <%= qrData.substring(0, 50) %>... -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= encodeURIComponent(qrData) %>" 
+             class="qr-code" alt="QR코드" style="border: 3px solid rgb(255, 255, 255) !important; background: rgb(255, 255, 255) !important;">
+        <% } else { %>
+        <!-- QR코드 없음: qrData='<%= typeof qrData !== 'undefined' ? qrData : 'UNDEFINED' %>' -->
+        <% } %>
+    </div>
+</body>
 </html>
 <style>
     * {
-        margin: 0 auto;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-    img {
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+    }
+    
+    .photo-container {
+        position: relative;
         width: 640px;
+        margin: 0 auto;
+        background-color: #ffffff;
+    }
+    
+    .frame {
+        width: 640px;
+        height: auto;
+        position: relative;
         z-index: 10;
+        display: block;
     }
+    
+    .userimg1, .userimg2, .userimg3, .userimg4 {
+        width: 550px;
+        height: auto;
+        position: absolute;
+        object-fit: cover;
+        
+    }
+    
     .userimg1 {
-        width: 600px;
-        position: absolute;
-        left: 10px;
-        top: 5px;
-        z-index: -5;
+        left: 45px;
+        top: 10px;
+        z-index: 5;
     }
+    
     .userimg2 {
-        width: 600px;
-        position: absolute;
-        left: 10px;
-        top: 440px;
-        z-index: -6;
+        left: 45px;
+        top: 430px;
+        z-index: 5;
     }
+    
     .userimg3 {
-        width: 600px;
-        position: absolute;
-        left: 10px;
-        top: 870px;
-        z-index: -6;
+        left: 45px;
+        top: 850px;
+        z-index: 5;
     }
+    
     .userimg4 {
-        width: 600px;
+        left: 45px;
+        top: 1250px;
+        z-index: 5;
+    }
+    
+    .qr-code {
         position: absolute;
-        left: 10px;
-        top: 1300px;
-        z-index: -6;
+        bottom: 30px;
+        right: 30px;
+        width: 120px;
+        height: 120px;
+        z-index: 15000 !important;
+        background-color: white !important;
+        padding: 4px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 </style>

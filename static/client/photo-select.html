@@ -15,165 +15,340 @@
     }
 
     * {
-        font-family: 'MinSans-Regular';
-        margin: 0 auto;
+        font-family: 'MinSans-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
-        background-color: rgb(210, 210, 210);
+        background-color: #f8f9fa;
+        color: #191f28;
+        line-height: 1.5;
     }
 
     nav {
-        background-color: rgb(0, 0, 0);
-        color: rgb(255, 255, 255);
-        height: 40px;
+        background-color: #191f28;
+        color: #ffffff;
+        height: 56px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     nav>p {
-        line-height: 40px;
-        margin-left: 20px;
+        line-height: 56px;
+        margin-left: 24px;
         text-align: left;
-    }
-
-    .home>li {
-        text-align: right;
+        font-size: 14px;
+        font-weight: 500;
     }
 
     .home>a {
-        color: rgb(255, 129, 129);
+        color: #3182f6;
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        gap: 60px;
+        align-items: flex-start;
+    }
+
+    .photo-section {
+        flex: 2;
+    }
+
+    .selection-section {
+        flex: 1;
+        max-width: 400px;
+        position: sticky;
+        top: 20px;
     }
 
     .welcome {
         text-align: center;
-        font-size: 2em;
+        margin: 40px 0;
     }
 
-    .welcome>p {
-        font-size: 0.8em;
+    .welcome-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #191f28;
+        margin-bottom: 16px;
     }
 
-    .main {
-        text-align: center;
+    .selection-status {
+        background-color: #3182f6;
+        color: #ffffff;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 24px;
     }
 
-    button {
-        font-size: 1em;
-        margin-top: 50px;
-        display: block;
-        align-items: center;
-        text-align: center;
-        width: 200px;
-        height: 50px;
-        border-radius: 0px;
-        background-color: rgb(150, 150, 150);
-        border: 1px solid black;
-        transition: all ease-in-out 0.3s;
-    }
-
-    .user-img {
-        width: 240px;
-        height: 180px;
-        background-size: cover;
-    }
-
-    .select-img {
-        margin: 10px;
-        width: 240px;
-        height: 180px;
-        position: relative;
-        overflow: hidden;
-        float: left;
-    }
-
-    .select-img>.background {
-        background-color: rgba(124, 124, 124, 0.5);
-        position: absolute;
-        font-size: 2em;
-        text-align: center;
-        line-height: 5em;
-        color: aliceblue;
-        width: 240px;
-        height: 180px;
-        transition: all 0.5s;
-        transform: translateY(240px);
+    .frame-preview {
+        display: none;
     }
 
     .select-box {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 32px 0;
+        max-width: 700px;
+    }
+
+    .select-img {
+        position: relative;
+        cursor: pointer;
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+    }
+
+    .select-img:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .select-img.selected {
+        border-color: #3182f6;
+        box-shadow: 0 4px 16px rgba(49, 130, 246, 0.2);
+    }
+
+    .user-img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        display: block;
+        border-radius: 12px;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(49, 130, 246, 0.9), rgba(59, 130, 246, 0.8));
         display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+        color: #ffffff;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .select-img.selected .background {
+        transform: translateY(0);
+    }
+
+    button {
+        width: 100%;
+        max-width: 320px;
+        height: 56px;
+        border-radius: 12px;
+        background-color: #3182f6;
+        color: #ffffff;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin: 48px auto;
+        display: block;
+        box-shadow: 0 2px 8px rgba(49, 130, 246, 0.2);
+    }
+
+    button:hover {
+        background-color: #1c6ef2;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
+    }
+
+    button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(49, 130, 246, 0.2);
+    }
+
+    button.error {
+        background-color: #dc3545;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    .selection-panel {
+        border-radius: 16px;
+        margin-bottom: 24px;
+    }
+
+    .selection-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #191f28;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .preview-container {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 20px auto 16px;
+        display: flex;
+        align-items: center;
         justify-content: center;
     }
 
-    .select-img.selected>.background {
-        transform: translateY(0px);
+    .preview-container img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        border: 0;
+        border-radius: 12px;
+        object-fit: contain;
     }
 
-    .main>.a {
-        transition: all 2s ease-in-out;
+    .preview-placeholder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #9ca3af;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
     }
 
-    .framebox {
-        display: flex;
-        align-items: center;
+    .skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite;
+        width: 80%;
+        height: 90%;
+        border-radius: 12px;
     }
 
-    .selected-frame {
-        height: 300px;
+    @keyframes skeleton-loading {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
     }
-</style>
-<style>
 
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .selection-section {
+            max-width: 100%;
+            position: static;
+            order: -1;
+        }
+        
+        .preview-container {
+            height: 400px;
+        }
+    }
 </style>
 
 <body>
     <nav>
         <p class="home">
-            대마네컷 WEB - <a>연결 시도중<a>
+            대마네컷 WEB - <a>연결 시도중</a>
         </p>
     </nav>
-    <div class="welcome">
-        사진을 골라주세요!
+    
+    <div class="container">
+        <div class="photo-section">
+            <div class="welcome">
+                <div class="welcome-title">사진을 골라주세요!</div>
+                <div class="selection-status">
+                    <span class="selected-count">0</span>개 사진 선택됨 (4개 필요)
+                </div>
+            </div>
+            
+            <div class="select-box">
+                <div class="select-img" indexid="1">
+                    <img class="user-img">
+                    <div class="background"></div>
+                </div>
+                <div class="select-img" indexid="2">
+                    <img class="user-img">
+                    <div class="background"></div>
+                </div>
+                <div class="select-img" indexid="3">
+                    <img class="user-img">
+                    <div class="background"></div>
+                </div>
+                <div class="select-img" indexid="4">
+                    <img class="user-img">
+                    <div class="background"></div>
+                </div>
+                <div class="select-img" indexid="5">
+                    <img class="user-img">
+                    <div class="background"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="selection-section">
+            <div class="selection-panel">
+                <div class="selection-title">4컯 미리보기</div>
+                <div class="preview-container">
+                    <img id="previewImg" src="" alt="4컯 미리보기" style="display: none;">
+                    <div class="skeleton" id="skeletonLoader"></div>
+                    <div class="preview-placeholder" id="previewPlaceholder" style="display: none;">
+                        미리보기 오류
+                    </div>
+                </div>
+            </div>
+            
+            <div class="frame-preview">
+                <img class="selected-frame" style="display: none;">
+            </div>
+            
+            <button onclick="nextPage();">
+                확정하기
+            </button>
+        </div>
     </div>
-    <div class="main">
-        <a></a>개 사진 선택됨
-    </div>
-    <div class="framebox"><img class="selected-frame"></div>
-
-    <div class="select-box">
-        <div class="select-img" indexid="1">
-            <div class="background"></div>
-            <img class="user-img">
-        </div>
-        <div class="select-img" indexid="2">
-            <div class="background"></div>
-            <img class="user-img">
-        </div>
-        <div class="select-img" indexid="3">
-            <div class="background"></div>
-            <img class="user-img">
-        </div>
-        <div class="select-img" indexid="4">
-            <div class="background"></div>
-            <img class="user-img">
-        </div>
-        <div class="select-img" indexid="5">
-            <div class="background"></div>
-            <img class="user-img">
-        </div>
-    </div>
-    <button onclick="nextPage();">
-        확정하기
-    </button>
 </body>
 
 </html>
 <script>
     let selectedCount = 0;
     const pic_id = getCookie('PicID');
-    const anchor = document.querySelector('.main > a');
+    const anchor = document.querySelector('.selected-count');
     anchor.textContent = selectedCount;
     const userImgs = document.querySelectorAll('.user-img');
     const selectImgs = document.querySelectorAll(".select-img");
     const backgrounds = document.querySelectorAll(".background");
+    const previewImg = document.getElementById('previewImg');
+    const previewPlaceholder = document.getElementById('previewPlaceholder');
+    const skeletonLoader = document.getElementById('skeletonLoader');
 
     let selectedImgs = [];
 
@@ -184,25 +359,81 @@
         }
         return null;
     }
+    
+    function base64Encode(str) {
+        return btoa(unescape(encodeURIComponent(str)));
+    }
+    
+    function updatePreview() {
+        // 스켈레톤 로딩 표시
+        previewImg.style.display = 'none';
+        previewPlaceholder.style.display = 'none';
+        skeletonLoader.style.display = 'block';
+        
+        let imginfo = [-1, -1, -1, -1];
+        
+        selectedImgs.forEach((element, index) => {
+            if (index < 4) {
+                imginfo[index] = element.getAttribute("indexid");
+            }
+        });
+        
+        const frameUrl = getCookie('frame');
+        const frameNumber = frameUrl ? frameUrl.match(/FRAME(\d+)\.png$/)?.[1] || '01' : '01';
+        const frame = base64Encode(frameNumber);
+        const imgSel = base64Encode(imginfo.join(','));
+        
+        let VIEW_URL;
+        if (selectedImgs.length > 0) {
+            const picID = base64Encode(pic_id);
+            VIEW_URL = picID + "?frame=" + frame + "&picture_id=" + imgSel;
+        } else {
+            VIEW_URL = "404?frame=" + frame + "&picture_id=" + imgSel;
+        }
+        
+        // Puppeteer PNG 엔드포인트로 직접 이미지 로드
+        previewImg.src = "/download/" + VIEW_URL;
+        
+        // 이미지 로드 완료 시 처리
+        previewImg.onload = function() {
+            skeletonLoader.style.display = 'none';
+            previewPlaceholder.style.display = 'none';
+            previewImg.style.display = 'block';
+        };
+        
+        // 이미지 로드 실패 시 처리
+        previewImg.onerror = function() {
+            skeletonLoader.style.display = 'none';
+            previewImg.style.display = 'none';
+            previewPlaceholder.style.display = 'block';
+        };
+        
+        console.log('미리보기 PNG URL:', previewImg.src);
+    }
+    
     function updateCounts() {
-        selectedCount = 0;
+        selectedCount = selectedImgs.length;
         selectedImgs.forEach(function (e, i) {
-            e.children[0].innerText = i + 1;
-            selectedCount++;
+            e.children[1].innerText = i + 1;
         });
         anchor.innerText = selectedCount;
+        updatePreview();
     }
-    // 모든 이미지에 사진 넣기
+
     userImgs.forEach(function (img, index) {
         img.src = `/gateway/cdn/image/${pic_id}-${index}`;
     });
+    
+    updatePreview();
     selectImgs.forEach(function (e) {
         e.addEventListener("click", function () {
-            if (selectedImgs.includes(e)) {
-                selectedImgs = selectedImgs.filter(img => img !== e);
+            const currentIndex = selectedImgs.indexOf(e);
+            
+            if (currentIndex !== -1) {
+                selectedImgs.splice(currentIndex, 1);
                 e.classList.remove("selected");
             } else {
-                if (!(selectedCount == 4)) {
+                if (selectedImgs.length < 4) {
                     selectedImgs.push(e);
                     e.classList.add("selected");
                 }
@@ -212,26 +443,28 @@
     });
     function nextPage() {
         if (selectedCount == 4) {
-            let imginfo = []; //선택한 사진 순서 가져옴
+            let imginfo = [];
             selectedImgs.forEach((element, index) => {
                 imginfo[index] = element.getAttribute("indexid");
             });
 
-            //신규 쿠키 추가
             const expires = new Date();
-            document.cookie = `Selected-Pic-ID=${imginfo};expires=0;path=/`;
-            const frameInfo = (savedFrameSrc.split("/")[5].split('-', 6)[5]);
-            document.cookie = `Frame-Info=${frameInfo};expires=0;path=/`;
+            document.cookie = `Selected-Pic-ID=${imginfo.join(',')};expires=0;path=/`;
+            
+            const frameUrl = getCookie('frame');
+            const frameNumber = frameUrl ? frameUrl.match(/FRAME(\d+)\.png$/)?.[1] || '01' : '01';
+            document.cookie = `Frame-Info=${frameNumber};expires=0;path=/`;
+            
             window.location.replace('./finished.html');
         } else {
             var target = document.querySelector('button');
+            const originalText = target.textContent;
             target.textContent = "사진을 4개 선택해 주세요";
-            target.style.backgroundColor = "red";
+            target.classList.add('error');
             setTimeout(() => {
-                var target = document.querySelector('button');
-                target.textContent = "확정하기";
-                target.style.backgroundColor = " rgb(150, 150, 150)";
-            }, 1000);
+                target.textContent = originalText;
+                target.classList.remove('error');
+            }, 1500);
         }
     }
 
@@ -253,11 +486,11 @@
             anchor.textContent = 'NANU-JP2 연결 실패';
         });
 
-    //사전에 선택된 이미지 로드
     const savedFrameSrc = getCookie('frame');
     if (savedFrameSrc) {
-        document.querySelectorAll('.selected-frame').forEach(img => {
-            img.src = savedFrameSrc;
-        });
+        const frameNumber = savedFrameSrc.match(/FRAME(\d+)\.png$/)?.[1] || '01';
+        const frameImg = document.querySelector('.selected-frame');
+        frameImg.src = savedFrameSrc;
+        frameImg.style.display = 'block';
     }
 </script>

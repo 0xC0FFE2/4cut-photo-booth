@@ -1,155 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>대마네컷 WEB</title>
-</head>
-<style>
+  </head>
+  <style>
     @font-face {
-        font-family: 'PyeongChangPeace-Bold';
-        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2') format('woff2');
-        font-weight: 700;
-        font-style: normal;
+      font-family: "PyeongChangPeace-Bold";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2")
+        format("woff2");
+      font-weight: 700;
+      font-style: normal;
+    }
+    * {
+      background-color: rgb(233, 233, 233);
     }
 
     body,
     html {
-        background-color: rgb(233, 233, 233);
-        height: 100%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .iframe-container {
-        display: flex;
-        justify-content: center;
-        /* 수평 가운데 정렬 */
-        align-items: center;
-        /* 수직 가운데 정렬 */
-        height: 900px;
-        /* 화면 전체 높이 */
+      background-color: rgb(233, 233, 233);
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow-x: hidden;
     }
 
     .display_mp4 {
-        margin-top: 200px;
-        transform: scale(0.4);
-        width: 640px;
-        /* 원하는 너비 */
-        height: 320%;
-        /* 원하는 높이 */
-        border: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.4);
+      width: 640px;
+      height: 320%;
+      border: none;
     }
 
     .thx {
-        font-family: 'PyeongChangPeace-Bold';
-        margin-top: 50px;
-        font-size: 3em;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: "PyeongChangPeace-Bold";
+      font-size: 3em;
+      text-align: center;
+      width: 100%;
+      cursor: pointer;
     }
 
     .date {
-        font-family: 'PyeongChangPeace-Bold';
-        font-size: 1.3em;
-        margin-bottom: 20px;
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: "PyeongChangPeace-Bold";
+      font-size: 1.3em;
+      text-align: center;
+      width: 100%;
+      cursor: pointer;
     }
 
     p {
-        background-color: rgb(255, 148, 148);
+      position: absolute;
+      top: 160px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgb(255, 148, 148);
+      text-align: center;
+      width: 100%;
+      margin: 0;
+      padding: 10px 0;
     }
 
     @keyframes blink {
-
-        0%,
-        100% {
-            opacity: 1;
-        }
-
-        50% {
-            opacity: 0;
-        }
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
     }
 
     .blink {
-        animation: blink 1.7s 4;
+      animation: blink 1.7s 4;
     }
 
     .hidden {
-        display: none;
-        opacity: 0;
+      display: none;
+      opacity: 0;
     }
-</style>
 
-<body style="overflow-x: hidden">
-    <p id="blinkText">*영상은 따로 저장기능이 없습니다. 화면 녹화를 이용해 주세요..</p>
+    .floating-download-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 60px);
+      max-width: 400px;
+      height: 60px;
+      background: linear-gradient(135deg, #3182f6, #1c6ef2);
+      border: none;
+      border-radius: 16px;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(49, 130, 246, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "PyeongChangPeace-Bold";
+    }
+
+    .floating-download-btn:hover {
+      transform: translateX(-50%) translateY(-3px);
+      box-shadow: 0 12px 35px rgba(49, 130, 246, 0.5),
+        0 6px 20px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(135deg, #1c6ef2, #0c5ce6);
+    }
+
+    .floating-download-btn:active {
+      transform: translateX(-50%) translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .floating-download-btn {
+        bottom: 20px;
+        width: calc(100% - 40px);
+        height: 55px;
+        font-size: 16px;
+      }
+    }
+  </style>
+
+  <body>
+    <p id="blinkText" style="z-index: 2000000">
+      *영상은 따로 저장기능이 없습니다. 화면 녹화를 이용해 주세요..
+    </p>
     <div class="thx" onclick="urlLoad()">대마네컷</div>
     <div class="date" onclick="urlLoad()">2024.07.07</div>
-    <div class="iframe-container">
-        <iframe src="" class="display_mp4">
-        </iframe>
-    </div>
-    </iframe>
-    <div class="margin-block"></div>
-</body>
+    <iframe src="" class="display_mp4" style="height: 1930px"></iframe>
 
+    <button
+      class="floating-download-btn"
+      onclick="urlLoad()"
+      title="이미지 다운로드"
+    >
+      이미지 다운로드
+    </button>
+  </body>
 </html>
 
 <script>
-    alert("'대마네컷'글자를 클릭하시면 사진을 다운받으실 수 있습니다");
-    function getDataFromUrlParameter(parameterName) {
-        var url = window.location.href;
-        var queryString = url.split('?')[1];
-        if (queryString) {
-            var parameters = queryString.split('&');
-            for (var i = 0; i < parameters.length; i++) {
-                var parameter = parameters[i].split('=');
-                if (parameter[0] === parameterName) {
-                    return decodeURIComponent(parameter[1].replace(/\+/g, ' '));
-                }
-            }
+  function getDataFromUrlParameter(parameterName) {
+    var url = window.location.href;
+    var queryString = url.split("?")[1];
+    if (queryString) {
+      var parameters = queryString.split("&");
+      for (var i = 0; i < parameters.length; i++) {
+        var parameter = parameters[i].split("=");
+        if (parameter[0] === parameterName) {
+          return decodeURIComponent(parameter[1].replace(/\+/g, " "));
         }
-        return null;
+      }
     }
+    return null;
+  }
 
-    function urlLoad() {
-        alert("서버에 고화질 렌더링을 요청합니다.");
-        const imageUrl = '/download/' + data; // CDN 이미지 URL
+  function urlLoad() {
+    const imageUrl = "/download/" + data;
 
-        fetch(imageUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = '대마네컷_Export_'+data.split('?')[0]; // 다운로드될 파일 이름
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url); // 메모리 해제
-            })
-            .catch(() => alert('이미지 다운로드에 실패했습니다. 크롬 브라우저로 시도하세요'));
-    }
+    fetch(imageUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = "대마네컷_Export_" + data.split("?")[0];
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(() =>
+        alert("이미지 다운로드에 실패했습니다. 크롬 브라우저로 시도하세요")
+      );
+  }
 
-    function base64Decode(encodedString) {
-        var decodedString = atob(encodedString);
-        return decodedString;
-    }
+  function base64Decode(encodedString) {
+    var decodedString = atob(encodedString);
+    return decodedString;
+  }
 
-    const data = base64Decode(getDataFromUrlParameter('data'));
+  const data = base64Decode(getDataFromUrlParameter("data"));
 
-    var iframe = document.querySelector('.display_mp4');
-    iframe.src = "/render/mp4/" + data;
+  var iframe = document.querySelector(".display_mp4");
+  iframe.src = "/render/mp4/" + data;
 
-    window.addEventListener('load', function () {
-        const p = document.getElementById('blinkText');
-        p.classList.add('blink');
+  window.addEventListener("load", function () {
+    const p = document.getElementById("blinkText");
+    p.classList.add("blink");
 
-        setTimeout(function () {
-            p.classList.remove('blink');
-            p.classList.add('hidden');
-        }, 4000);
-    });
+    setTimeout(function () {
+      p.classList.remove("blink");
+      p.classList.add("hidden");
+    }, 3000);
+  });
 </script>
