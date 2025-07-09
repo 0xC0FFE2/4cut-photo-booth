@@ -244,7 +244,6 @@
     const QR_DATA = URL_FRONT + base64Encode(VIEW_URL);
     const RENDER_URL = VIEW_URL + "&qr=" + encodeURIComponent(QR_DATA);
     
-    // 디버깅 정보 출력
     console.log('클라이언트 디버깅:');
     console.log('Frame-Info 쿠키:', getCookie("Frame-Info"));
     console.log('frame (base64):', frame);
@@ -258,7 +257,29 @@
     iframe.src = "/render/png/" + RENDER_URL;
 
     function downloadPDF() {
-        const downloadUrl = "/download/pdf/" + RENDER_URL;
-        window.open(downloadUrl, '_blank');
+        const pdfUrl = window.location.origin + "/download/pdf/" + RENDER_URL;
+        
+        fetch('https://photo-gw.ncloud.sbs/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url: pdfUrl
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('PDF URL 전송 완료');
+                window.open(pdfUrl, '_blank');
+            } else {
+                console.error('PDF URL 전송 실패');
+                window.open(pdfUrl, '_blank');
+            }
+        })
+        .catch(error => {
+            console.error('네트워크 오류:', error);
+            window.open(pdfUrl, '_blank');
+        });
     }
 </script>

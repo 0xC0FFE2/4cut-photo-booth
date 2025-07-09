@@ -2,7 +2,7 @@ const express = require("express");
 const puppeteer = require("puppeteer");
 const router = express.Router();
 
-const BASE_RENDER_URL = process.env.RENDER_SERVER_URL || 'http://localhost:8080';
+const BASE_RENDER_URL = process.env.RENDER_SERVER_URL || 'https://cloud.samsungsds.one';
 
 const getFullUrl = (uri, query, isPrint = false) => {
     const queryString = new URLSearchParams(query).toString();
